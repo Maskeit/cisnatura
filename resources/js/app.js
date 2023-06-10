@@ -1,7 +1,7 @@
-const ruta = "/cisntatura/admin";
+const ruta = "/cisntatura";
 const app = {
     routes : {
-        citas : ruta +"/app/app.php",
+        citas : "/cisnatura/app/app.php",
         lastcita : ruta +"/app/app.php?_lc",
     },
 
@@ -31,6 +31,5 @@ const app = {
             }).catch(err => console.log(err));
     }
     
-
-
 }
+

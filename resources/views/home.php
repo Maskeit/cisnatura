@@ -1,36 +1,10 @@
 <?php
 namespace views;
-require "../app/autoloader.php";
-
+require "../../app/autoloader.php";
+include "./layouts/main.php";
+head();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/bootstrap.css">
-
-    <title>Cisnatura Dashboard</title>
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Cisnatura Dashboard</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="crear_cita.html">Crear Cita</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="otra_pagina.html">Otra Página</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
 
     <div class="row mx-auto mt-2" style="width: 90%;">
         <div class="col-7">
@@ -77,11 +51,8 @@ require "../app/autoloader.php";
         </div>
     </div>
     
-
-    <script src="/cisntatura/admin/views/js/jquery.js"></script>
-    <script src="/cisntatura/admin/views/js/popper.js"></script>
-    <script src="/cisntatura/admin/views/js/bootstrap.js"></script>
     <script>
+        /**Datos del formulario */
     // Capturar los elementos del formulario
     const form = document.getElementById('cita-form');
     const fechaInput = document.getElementById('fecha');
@@ -117,9 +88,8 @@ require "../app/autoloader.php";
     telefonoInput.addEventListener('input', () => {
         telefonoPreview.textContent = `Teléfono: ${telefonoInput.value}`;
     });
-</script>
-<script src="/cisntatura/admin/views/js/app.js"></script>
-
+    </script>
+<?php scripts();?>
 <script type="text/javascript">
 $(function(){
     const cf = $("#cita-form"); //cf es cita form
@@ -140,8 +110,12 @@ $(function(){
             .then ( resp => resp.json())
             .then ( resp => {
                 if(resp.r !== false){
-                    location.href = "/cisntatura/admin/views/home.php";
+                    alert("la cita se ha registrado correctamente");
+                    form.reset();
+                    location.href = "/cisntatura/views/home.php";
                     //app.view("home");
+                    form.reset();
+                    alert('La cita se ha registrado correctamente');
                 }else{
                     $("#error").removeClass("d-none");
                 }
@@ -150,6 +124,5 @@ $(function(){
 })
 </script>
 
-
-</body>
-</html>
+<?php
+    foot();
