@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 10-06-2023 a las 01:30:37
--- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 7.4.29
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 12-06-2023 a las 17:53:43
+-- Versión del servidor: 10.4.22-MariaDB
+-- Versión de PHP: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `cisnaturaDash`
+-- Base de datos: `cisnaturadash`
 --
 
 -- --------------------------------------------------------
@@ -33,19 +33,20 @@ CREATE TABLE `cita` (
   `hora_cita` time NOT NULL,
   `nombre_cliente` varchar(255) NOT NULL,
   `tipo_cita` varchar(255) NOT NULL,
-  `telefono_cliente` varchar(255) DEFAULT NULL
+  `telefono_cliente` varchar(255) DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `cita`
 --
 
-INSERT INTO `cita` (`id`, `fecha_cita`, `hora_cita`, `nombre_cliente`, `tipo_cita`, `telefono_cliente`) VALUES
-(1, '2023-06-08', '18:00:00', 'Panfilo', 'Consulta', '314 166 9052'),
-(2, '2023-06-12', '10:00:00', 'rafael gomez', 'consulta', '314654322'),
-(3, '2023-06-12', '10:00:00', 'rafael gomez', 'consulta', '314654322'),
-(4, '2023-06-09', '18:06:00', 'Panfilo xd', 'Reflexologia', '123123123'),
-(5, '2023-06-09', '18:06:00', ' ', 'Reflexologia', '123123123');
+INSERT INTO `cita` (`id`, `fecha_cita`, `hora_cita`, `nombre_cliente`, `tipo_cita`, `telefono_cliente`, `active`, `created_at`, `updated_at`, `deleted`) VALUES
+(14, '2023-06-29', '19:00:00', 'Piter Gustav Mendeleyev', 'Consulta', '3141551212', 0, '2023-06-12 00:17:56', NULL, 0),
+(15, '2023-06-14', '20:00:00', 'Jose Perez', 'Mieeee', '32156543', 0, '2023-06-12 00:29:13', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -89,7 +90,7 @@ ALTER TABLE `consultas`
 -- AUTO_INCREMENT de la tabla `cita`
 --
 ALTER TABLE `cita`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
