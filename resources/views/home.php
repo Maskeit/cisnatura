@@ -5,8 +5,33 @@ include "./layouts/main.php";
 head();
 ?>
 
+<div class="row mx-auto mt-0 mb-3" style="width: 100%;">
 
+    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+        <img src="/cisnatura/resources/img/plantas1.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+        <img src="/cisnatura/resources/img/back.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+        <img src="/cisnatura/resources/img/montaña3.png" class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+    </div>
+</div>
     <div class="row mx-auto mt-2" style="width: 90%;">
+
+
         <div class="col-7">
             <div id="cita-prev">
                 <h1>Crear Cita</h1>
@@ -43,10 +68,6 @@ head();
                     <p id="cliente-preview"></p>
                     <p id="tipo-cita-preview"></p>
                     <p id="telefono-preview"></p>
-                </div>
-
-                <div id="ultima-cita" class="mt-7" style="background-color: rgba(100, 255, 110, 0.6); padding: 10px; border-radius: 10px;">
-                    <!-- Aqui va colocada la ultima cita -->
                 </div>
         </div>
     </div>

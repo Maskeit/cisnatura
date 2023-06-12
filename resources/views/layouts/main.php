@@ -1,5 +1,6 @@
 <?php
-    function head(){
+    function head($ua = null){
+        !is_null($ua) ? $ua->sessionValidate() : null;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +11,7 @@
     <link rel="stylesheet" href="/cisnatura/resources/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
-    <title>Cisnatura Dashboard</title>
+    <title>Cisnatura Citas</title>
 </head>
 <body>
     <div id="app" class="container-fluid p-0">
@@ -22,11 +23,21 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="home.php">Crear Cita</a>
+                        <a class="nav-link" href="/cisnatura/resources/views/home.php">Crear Cita</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="miscitas.php">Otra Página</a>
+                        <a class="nav-link" href="/cisnatura/resources/views/miscitas.php">Otra Página</a>
                     </li>
+                    <?php if(is_null($ua) || !$ua->sv){ ?>
+
+                    <li class="nav-item">
+                        <button type="button" class="nav-link btn btn-link" 
+                            onclick="app.view('inisession')" >
+                            Iniciar Sesión
+                        </button>
+                    </li>
+
+                    <?php } ?>
                 </ul>
             </div>
         </nav>
@@ -38,6 +49,7 @@ function scripts($script=""){
 </div>
 <script src="/cisnatura/resources/js/jquery.js"></script>
 <script src="/cisnatura/resources/js/popper.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="/cisnatura/resources/js/bootstrap.js"></script>
 <script src="/cisnatura/resources/js/app.js"></script>
 <?php

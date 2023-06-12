@@ -3,6 +3,8 @@
     namespace Controllers;
 
     use Models\cita;
+    use Models\user;
+    use Controllers\auth\LoginController as LoginController;
 
 class PostController {
 
@@ -12,12 +14,21 @@ class PostController {
     public $tipoConsulta;
     public $telefonoCliente;
 
+    private $userId;
+    private $title;
+    private $body;
+
+
     public function __construct(){
         $this->fecha = $_POST['fecha_cita'] ?? '';
         $this->hora = $_POST['hora_cita'] ?? '';
         $this->cliente = $_POST['nombre_cliente'] ?? '';
         $this->tipoConsulta = $_POST['tipo_cita'] ?? '';
         $this->telefonoCliente = $_POST['telefono_cliente'] ?? '';
+
+        $ua = new LoginController();
+        $ua->sessionValidate();
+        $this->userId = $ua->id;
     }
 
     public function nuevaCita($datos){
