@@ -114,7 +114,6 @@ class DB {
         return $stmt->execute();
     }
 
-    //update profe
     public function update($sets){
         foreach($sets as $s){
             $set[] = $s[0] . "=" . $s[1];

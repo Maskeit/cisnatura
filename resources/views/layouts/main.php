@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/cisnatura/resources/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
     <title>Cisnatura Dashboard</title>
 </head>
@@ -41,7 +42,7 @@ function scripts($script=""){
 <script src="/cisnatura/resources/js/app.js"></script>
 <?php
     if($script != ''){
-        echo '<script src="/cisnatura/admin/resources/js/' . $script . '.js"></script>';
+        echo '<script src="/cisnatura/resources/js/' . $script . '.js"></script>';
     }
 }
     function foot(){

@@ -34,13 +34,30 @@ class PostController {
         die;
     }
 
-    public function getCitas($limit=""){
+    // public function getCitas($limit=""){
+    //     $citas = new cita();
+    //     $resultC = $citas->select(['fecha_cita','hora_cita','nombre_cliente','tipo_cita', 'telefono_cliente'])
+    //                     ->orderBy([['fecha_cita','DESC']])
+    //                     ->limit($limit)
+    //                     ->get();
+    //     return $resultC;
+    // }
+
+    public function getMyCitas(){
         $citas = new cita();
-        $resultC = $citas->select(['fecha_cita','hora_cita','nombre_cliente','tipo_cita', 'telefono_cliente'])
-                        ->orderBy([['fecha_cita','DESC']])
-                        ->limit($limit)
-                        ->get();
-        return $resultC;
+        $result = $citas->get();
+        return $result;               
     }
-        
+    
+    public function toggleCitaActive($pid) {
+        $cita = new cita();
+        $result = $cita->where([['id', $pid]])->update([['active', 'not active']]); // Cambia '1' por el valor adecuado para completado
+    } 
+    
+    public function deleteCita($pid) {
+        $cita = new cita();
+        $result = $cita->delete($pid);
+        return $result;
+    }
+    
 }
