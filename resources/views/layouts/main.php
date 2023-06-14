@@ -24,10 +24,16 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                <a class="nav-link" href="/cisnatura/resources/views/home.php">Crear Cita</a>
+                    <a class="nav-link" href="/cisnatura/resources/views/home.php">Inicio</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="/cisnatura/resources/views/miscitas.php">Citas</a>
+                    <a class="nav-link" href="/cisnatura/resources/views/newcita.php">Crear Cita</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cisnatura/resources/views/miscitas.php">Citas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cisnatura/resources/views/catalogo.php">Catálogo</a>
                 </li>
                 <?php if(is_null($ua) || !$ua->sv){ ?>
 
@@ -38,10 +44,18 @@
                     </button>
                 </li>
 
+                <?php }  else {?>
+                <li class="nav-item">
+                    <button type="button" class="nav-link btn btn-link" 
+                        onclick="app.view('endsession')" >
+                        Cerrar Sesión
+                    </button>
+                </li>
                 <?php } ?>
+
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown link
+                    Más
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <li><a class="dropdown-item" href="#">Action</a></li>
@@ -51,6 +65,12 @@
                 </li>
             </ul>
             </div>
+            <li class="nav-item">
+                    <button type="button" class="nav-link btn btn-link">
+                        <?=$ua->name?>
+                    </button>
+                </li>
+            <span class="navbar-text mx-2"><i class="bi bi-basket"></i></span>
         </div>
         </nav>
 
@@ -75,4 +95,24 @@ function scripts($script=""){
 
 </body>
 </html>
+<footer class="bg-dark text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-5 mt-5">
+                <img src="/cisnatura/resources/img/plantas1.jpg" alt="Logo" class="rounded" style="width: 100px;">
+            </div>
+            <div class="col-md-4 mb-5 mt-5">
+                <p>&copy; CISnatura</p>
+            </div>
+            <div class="col-md-4 mb-5 mt-5">
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a href="#">Aviso de privacidad</a></li>
+                    <li class="list-inline-item"><a href="#">Facebook</a></li>
+                    <li class="list-inline-item"><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
 <?php }

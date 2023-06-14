@@ -4,7 +4,7 @@ const app_mycitas ={
     mc : $("#my-citas"),
 
     getMyCitas : function(){
-        let html = `<tr><td colspan="3">Aún no tiene citas</td></tr>`;      
+        let html = `<tr><td colspan="3">Todo esta tranquilo por aqui...</td></tr>`;      
         this.mc.html("");
         fetch(this.url + "?_mc")
             .then( resp => resp.json())

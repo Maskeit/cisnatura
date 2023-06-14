@@ -4,6 +4,7 @@ namespace app;
 
 require_once "autoloader.php";
 use Controllers\PostController as PostController;
+use Controllers\auth\LoginController as LoginController;
 
 if(!empty($_POST)){
     //*************LOGIN */
@@ -11,8 +12,7 @@ if(!empty($_POST)){
     if($login){
         $datos = filter_input_array(INPUT_POST,FILTER_SANITIZE_SPECIAL_CHARS);
         $userLogin = new LoginController();
-        print_r($userLogin->userAuth($datos));
-        
+        print_r($userLogin->userAuth($datos));        
     }
 
     //************REGISTRO DE CUENTA */
@@ -33,14 +33,13 @@ if(!empty($_POST)){
 }
 
 if(!empty($_GET)){
-    //******************CARGAR LA ultima consulta */
-    // $lc = in_array('_lc', array_keys(filter_input_array(INPUT_GET)));
-    // if($lc){
-    //     $limit = filter_input(INPUT_GET, 'limit', FILTER_SANITIZE_NUMBER_INT);
-    //     $lastcita = new PostController();
-    //     print_r($lastcita->getCitas($limit));
-    // }
-
+    //*************LOGOUT */
+    $logout = in_array('_logout',array_keys(filter_input_array(INPUT_GET)));
+    if($logout){
+    $userLogout = new LoginController();
+    $userLogout->logout();
+    header('Location:/cisnatura/resources/views/home.php');
+    }
     //**********************CARGAR MIS citas en la tabla ******************/
     $mc = in_array('_mc',array_keys(filter_input_array(INPUT_GET)));
     if($mc){
