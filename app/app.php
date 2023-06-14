@@ -14,6 +14,15 @@ if(!empty($_POST)){
         print_r($userLogin->userAuth($datos));
         
     }
+
+    //************REGISTRO DE CUENTA */
+    $register = in_array('_register',array_keys(filter_input_array(INPUT_POST)));
+    if($register){
+        $datos = filter_input_array(INPUT_POST,FILTER_SANITIZE_SPECIAL_CHARS);
+        $userRegister = new LoginController();
+        print_r($userRegister->userRegister($datos));   
+    }
+
     /**FORMULARIO DE REGISTRO DE CITA */
     $cita = in_array('_cita',array_keys(filter_input_array(INPUT_POST)));
     if($cita){

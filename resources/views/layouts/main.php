@@ -16,31 +16,44 @@
 <body>
     <div id="app" class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Cisnatura Dashboard</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/cisnatura/resources/views/home.php">Cisnatura</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/cisnatura/resources/views/home.php">Crear Cita</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/cisnatura/resources/views/miscitas.php">Otra Página</a>
-                    </li>
-                    <?php if(is_null($ua) || !$ua->sv){ ?>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                <a class="nav-link" href="/cisnatura/resources/views/home.php">Crear Cita</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/cisnatura/resources/views/miscitas.php">Citas</a>
+                </li>
+                <?php if(is_null($ua) || !$ua->sv){ ?>
 
-                    <li class="nav-item">
-                        <button type="button" class="nav-link btn btn-link" 
-                            onclick="app.view('inisession')" >
-                            Iniciar Sesión
-                        </button>
-                    </li>
+                <li class="nav-item">
+                    <button type="button" class="nav-link btn btn-link" 
+                        onclick="app.view('inisession')" >
+                        Iniciar Sesión
+                    </button>
+                </li>
 
-                    <?php } ?>
+                <?php } ?>
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown link
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
+                </li>
+            </ul>
             </div>
+        </div>
         </nav>
+
     </div>
     <?php
 }

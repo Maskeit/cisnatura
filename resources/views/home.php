@@ -7,7 +7,7 @@ head();
 
 <div class="row mx-auto mt-0 mb-3" style="width: 100%;">
 
-    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <!-- <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
         <img src="/cisnatura/resources/img/plantas1.jpg" class="d-block w-100" alt="...">
@@ -27,7 +27,7 @@ head();
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
-    </div>
+    </div> -->
 </div>
     <div class="row mx-auto mt-2" style="width: 90%;">
 
@@ -47,7 +47,11 @@ head();
                     <input class="form-control m-2" type="text" id="cliente" name="nombre_cliente" required>
 
                     <label for="tipo_cita">Tipo de Cita:</label>
-                    <input class="form-control m-2" type="text" id="tipo_cita" name="tipo_cita" required>
+                    <select class="form-select m-2" id="inputGroupSelect04" aria-label="Example select with button addon">
+                        <option selected>Consulta</option>
+                        <option value="2">Curso</option>
+                        <option value="3">Asesoria</option>
+                    </select>
 
                     <label for="telefono">Teléfono:</label>
                     <input class="form-control m-2" type="text" id="telefono" name="telefono_cliente">

@@ -93,7 +93,7 @@
                     .then ( resp => resp.json())
                     .then ( resp => {
                         if(resp.r !== false){
-                            //location.href = "/ProgramacionPPW/blog/resources/views/home.php";
+                            location.href = "/cisnatura/resources/views/home.php";
                             app.view("inisession");
                         }else{
                             $("#error").removeClass("d-none");

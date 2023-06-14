@@ -1,8 +1,8 @@
 <?php
 
     namespace views;
-    require "/cisnatura/app/autoloader.php";
-    include "/cisnatura/resources/views/layouts/main.php";
+    require "../../../app/autoloader.php";
+    include "../layouts/main.php";
     use Controllers\auth\LoginController as LoginController;
 
     head();
@@ -63,7 +63,7 @@
                 .then ( resp => resp.json())
                 .then ( resp => {
                     if(resp.r !== false){
-                        location.href = "/ProgramacionPPW/blog/resources/views/home.php";
+                        location.href = "/cisnatura/resources/views/home.php";
                         //app.view("home");
                     }else{
                         $("#error").removeClass("d-none");
