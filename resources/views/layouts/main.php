@@ -95,7 +95,7 @@ function scripts($script=""){
 
 </body>
 </html>
-<footer class="bg-dark text-white">
+<!-- <footer class="bg-dark text-white">
     <div class="container">
         <div class="row">
             <div class="col-md-4 mb-5 mt-5">
@@ -113,6 +113,6 @@ function scripts($script=""){
             </div>
         </div>
     </div>
-</footer>
+</footer> -->
 
 <?php }

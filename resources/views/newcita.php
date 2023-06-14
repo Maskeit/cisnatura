@@ -4,46 +4,90 @@ require "../../app/autoloader.php";
 include "./layouts/main.php";
 head();
 ?>
+    <style>
+        #calendar {
+        width: 100%;
+        max-width: 300px;
+        border: 1px solid #ccc;
+        font-family: Arial, sans-serif;
+        margin: 0 auto;
+        box-sizing: border-box;
+        }
 
-<div class="row mx-auto mt-0 mb-3" style="width: 100%;">
+        .calendar-header {
+        text-align: center;
+        font-weight: bold;
+        padding: 10px;
+        background-color: #f5f5f5;
+        }
 
-    <!-- <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-        <img src="/cisnatura/resources/img/plantas1.jpg" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-        <img src="/cisnatura/resources/img/back.jpg" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-        <img src="/cisnatura/resources/img/montaña3.png" class="d-block w-100" alt="...">
+        .calendar-row {
+        display: flex;
+        }
+
+        .weekdays-row {
+        font-weight: bold;
+        border-bottom: 1px solid #ccc;
+        }
+
+        .calendar-cell {
+        flex: 1;
+        padding: 10px;
+        text-align: center;
+        }
+
+        .weekday-cell {
+        background-color: #f5f5f5;
+        }
+
+        .day-cell {
+        cursor: pointer;
+        }
+
+        .current-day {
+        background-color: #5cb85c;
+        color: #fff;
+        }
+
+        .weekend {
+        background-color: #d9534f;
+        color: #fff;
+        }
+    </style>
+
+    <div class="row mx-auto mt-2" style="width: 90%;">
+        <div class="alert alert-success" role="alert">
+            Verifica la disponibilidad de tu cita en la fecha correspondiente
         </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-    </div> -->
-</div>
+    
     <div class="row mx-auto mt-2" style="width: 90%;">
-
-
         <div class="col-7">
             <div id="cita-prev">
-                <h1>Crear Cita</h1>
+                <h1>Solicitar Cita</h1>
 
-                <form id="cita-form" action="guardar_cita.php" method="POST">
-                    <label for="fecha">Fecha:</label>
-                    <input class="form-control m-2" type="date" id="fecha" name="fecha_cita" required>
+                <form id="cita-form" action="" method="POST">
 
-                    <label for="hora">Hora:</label>
-                    <input class="form-control m-2" type="time" id="hora" name="hora_cita" required>
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal">
+                        Seleccionar Fecha y Hora<i class="bi bi-calendar-check mx-3"></i><i class="bi bi-smartwatch"></i>
+                    </button>
 
-                    <label for="cliente">Cliente:</label>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-control m-2">
+                                <label for="fecha">Fecha:</label>
+                                <input type="text" id="fecha" type="date" class="form-control" name="fecha_cita" required readonly>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-control m-2">
+                                <label for="hora">Hora:</label>
+                                <input type="text" id="hora" type="time" class="form-control" name="hora_cita" required readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <label for="cliente">Nombre:</label>
                     <input class="form-control m-2" type="text" id="cliente" name="nombre_cliente" required>
 
                     <label for="tipo_cita">Tipo de Cita:</label>
@@ -60,78 +104,71 @@ head();
                         <button type="submit" class="btn btn-primary mb-3">Confirmar registro</button>
                     </div>
                 </form>
+                <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Seleccionar Fecha</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Contenido del modal -->
+                            <div id="calendar"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hecho</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
 
             </div>
+            
         </div>
-                
+                        
         <div id="cita-preview" class="col-5 mt-2">
                 <h3>Registro de Cita:</h3>
-                <div class="border-radius" style="background-color: rgba(100, 255, 110, 0.6); padding: 10px; border-radius: 10px;">
+                <div class="alert alert-warning" role="alert">
                     <p id="fecha-preview"></p>
                     <p id="hora-preview"></p>
                     <p id="cliente-preview"></p>
                     <p id="tipo-cita-preview"></p>
                     <p id="telefono-preview"></p>
                 </div>
-        </div>
+        </div>   
     </div>
+
     
-    <script>
-        /**Datos del formulario */
-    // Capturar los elementos del formulario
-    const form = document.getElementById('cita-form');
-    const fechaInput = document.getElementById('fecha');
-    const horaInput = document.getElementById('hora');
-    const clienteInput = document.getElementById('cliente');
-    const tipoCitaInput = document.getElementById('tipo_cita');
-    const telefonoInput = document.getElementById('telefono');
+    <?php scripts();?>
+    
+    
+    <!-- calendar-generator control -->
+    <script src="/cisnatura/resources/js/app_calendar.js"></script>
 
-    // Capturar los elementos de vista previa
-    const fechaPreview = document.getElementById('fecha-preview');
-    const horaPreview = document.getElementById('hora-preview');
-    const clientePreview = document.getElementById('cliente-preview');
-    const tipoCitaPreview = document.getElementById('tipo-cita-preview');
-    const telefonoPreview = document.getElementById('telefono-preview');
+<!-- preview-cita control -->
+<script>
 
-    // Actualizar la vista previa al cambiar los valores en el formulario
-    fechaInput.addEventListener('input', () => {
-        fechaPreview.textContent = `Fecha: ${fechaInput.value}`;
-    });
+</script>
 
-    horaInput.addEventListener('input', () => {
-        horaPreview.textContent = `Hora: ${horaInput.value}`;
-    });
-
-    clienteInput.addEventListener('input', () => {
-        clientePreview.textContent = `Cliente: ${clienteInput.value}`;
-    });
-
-    tipoCitaInput.addEventListener('input', () => {
-        tipoCitaPreview.textContent = `Tipo de Cita: ${tipoCitaInput.value}`;
-    });
-
-    telefonoInput.addEventListener('input', () => {
-        telefonoPreview.textContent = `Teléfono: ${telefonoInput.value}`;
-    });
-    </script>
-<?php scripts();?>
+<!-- form-control -->
 <script type="text/javascript">
-$(function(){
-    const cf = $("#cita-form"); //cf es cita form
-    cf.on("submit", function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        const data = new FormData();
-        data.append("fecha_cita",$("#fecha").val());
-        data.append("hora_cita",$("#hora").val());   
-        data.append("nombre_cliente",$("#cliente").val());
-        data.append("tipo_cita",$("#tipo_cita").val());
-        data.append("telefono_cliente",$("#telefono").val());
-        data.append("_cita","");
-        fetch(app.routes.citas,{
-            method : "POST",
-            body : data
-        })
+        $(function(){
+            const cf = $("#cita-form"); //cf es cita form
+            cf.on("submit", function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                const data = new FormData();
+                data.append("fecha_cita",$("#fecha").val());
+                data.append("hora_cita",$("#hora").val());   
+                data.append("nombre_cliente",$("#cliente").val());
+                data.append("tipo_cita",$("#tipo_cita").val());
+                data.append("telefono_cliente",$("#telefono").val());
+                data.append("_cita","");
+                fetch(app.routes.citas,{
+                    method : "POST",
+                    body : data
+                })
             .then ( resp => resp.json())
             .then ( resp => {
                 if(resp.r !== false){
@@ -144,8 +181,8 @@ $(function(){
                     $("#error").removeClass("d-none");
                 }
             }).catch( err => console.error( err ));
+        })
     })
-})
 </script>
 
 <?php
