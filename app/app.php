@@ -55,7 +55,6 @@ if(!empty($_GET)){
         $result = $cita->toggleCitaActive($pid);
     }
     
-
     /****************************ELIMINAR O BORRAR LA CITA DE LA BD */
     $dc = in_array('_dc', array_keys(filter_input_array(INPUT_GET)));
     if($dc){
@@ -68,4 +67,13 @@ if(!empty($_GET)){
             print_r(json_encode(['r' => 'error']));
         }
     }
+
+    /***************VERIFICAR HORARIOS DISPONIBLES */
+    if (isset($_GET['_fecha'])) {
+        $fecha = $_GET['_fecha'];
+        $cita = new PostController();
+        $horariosDisponibles = $cita->getHorarios($fecha);
+        print_r(json_encode($horariosDisponibles));
+    }
+
 }

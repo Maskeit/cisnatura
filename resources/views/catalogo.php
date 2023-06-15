@@ -2,7 +2,9 @@
 namespace views;
 require "../../app/autoloader.php";
 include "./layouts/main.php";
-head();
+use Controllers\auth\LoginController as LoginController;
+$ua = new LoginController;
+head($ua);
 ?>
 <style>
     .card:hover {

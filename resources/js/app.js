@@ -11,10 +11,10 @@ const app = {
 
         citas : ruta +"/app/app.php",
         lastcita : ruta +"/app/app.php?_lc",
+
+        miscitas : ruta +"/resources/views/admin/miscitas.php",
+        newproduct : ruta +"/resources/views/admin/newproduct.php",
     },
-
-    lc : $("#ultima-cita"),
-
     view : function(route){
         location.replace(this.routes[route]);
     },

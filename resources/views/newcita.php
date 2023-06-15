@@ -2,58 +2,69 @@
 namespace views;
 require "../../app/autoloader.php";
 include "./layouts/main.php";
-head();
+use Controllers\auth\LoginController as LoginController;
+$ua = new LoginController;
+head($ua);
 ?>
-    <style>
-        #calendar {
-        width: 100%;
-        max-width: 300px;
-        border: 1px solid #ccc;
-        font-family: Arial, sans-serif;
-        margin: 0 auto;
-        box-sizing: border-box;
-        }
+<style>
+#calendar {
+  display: flex;
+  flex-wrap: wrap;
+  width: 300px;
+  border: 1px solid #ccc;
+  font-family: Arial, sans-serif;
+}
 
-        .calendar-header {
-        text-align: center;
-        font-weight: bold;
-        padding: 10px;
-        background-color: #f5f5f5;
-        }
+.calendar-header {
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+  background-color: #f5f5f5;
+}
 
-        .calendar-row {
-        display: flex;
-        }
+.calendar-row {
+  width: 100%;
+  display: flex;
+}
 
-        .weekdays-row {
-        font-weight: bold;
-        border-bottom: 1px solid #ccc;
-        }
+.weekdays-row {
+  width: 100%;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+}
 
-        .calendar-cell {
-        flex: 1;
-        padding: 10px;
-        text-align: center;
-        }
+.calendar-cell {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+}
 
-        .weekday-cell {
-        background-color: #f5f5f5;
-        }
+.weekday-cell {
+  background-color: #f5f5f5;
+}
 
-        .day-cell {
-        cursor: pointer;
-        }
+.day-cell {
+  cursor: pointer;
+}
 
-        .current-day {
-        background-color: #5cb85c;
-        color: #fff;
-        }
+.current-day {
+  background-color: #5cb85c;
+  color: #fff;
+}
 
-        .weekend {
-        background-color: #d9534f;
-        color: #fff;
-        }
-    </style>
+.weekend {
+  background-color: #d9534f;
+  color: #fff;
+}
+
+.available-schedule {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f5f5f5;
+}
+</style>
+
 
     <div class="row mx-auto mt-2" style="width: 90%;">
         <div class="alert alert-success" role="alert">
@@ -76,13 +87,13 @@ head();
                         <div class="col">
                             <div class="form-control m-2">
                                 <label for="fecha">Fecha:</label>
-                                <input type="text" id="fecha" type="date" class="form-control" name="fecha_cita" required readonly>
+                                <input type="text" id="fecha" type="date" class="form-control" name="fecha_cita" required >
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-control m-2">
                                 <label for="hora">Hora:</label>
-                                <input type="text" id="hora" type="time" class="form-control" name="hora_cita" required readonly>
+                                <input type="text" id="hora" type="time" class="form-control" name="hora_cita" required >
                             </div>
                         </div>
                     </div>
@@ -113,9 +124,18 @@ head();
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <!-- Contenido del modal -->
+                        <div class="row">
+                            <div class="col-8">
                             <div id="calendar"></div>
+                            </div>
+                            <div class="col-4">
+                            <div id="available-dates">
+                                <h4>Horarios disponiles:</h4>
+                            </div>
+                            </div>
                         </div>
+                        </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hecho</button>
                         </div>

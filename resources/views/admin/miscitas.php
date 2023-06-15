@@ -1,8 +1,10 @@
 <?php
 namespace views;
-require "../../app/autoloader.php";
-include "./layouts/main.php";
-head();
+require "../../../app/autoloader.php";
+include "../layouts/main.php";
+use Controllers\auth\LoginController as LoginController;
+$ua = new LoginController;
+head($ua);
 ?>
 
 <section class="container pt-5"> 

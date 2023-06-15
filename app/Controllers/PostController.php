@@ -59,6 +59,13 @@ class PostController {
         $result = $citas->get();
         return $result;               
     }
+
+    public function getHorarios($fec){
+        $cita = new cita();
+        $result = $cita->where([['fecha_cita',$fec]])
+                        ->get();
+        return $result;
+    }
     
     public function toggleCitaActive($pid) {
         $cita = new cita();
