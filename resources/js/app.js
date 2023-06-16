@@ -20,6 +20,11 @@ const app = {
     view : function(route){
         location.replace(this.routes[route]);
     },
+    user : {
+        sv : false,
+        id : "",
+        tipo : "",
+    },
 
     pc : $('#product-card'),
 

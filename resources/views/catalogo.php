@@ -17,7 +17,7 @@ head($ua);
         <h2 class="wp-block-heading mt-5" style="text-decoration: none;">
             Cátalogo Cisnatura
         </h2>
-        <div class="col-md-3 my-3 col-sm-8" id="product-card">
+        <div id="product-card" class="col-md-3 my-3 col-sm-8">
             <!-- aqui van los productos -->
             
         </div>
@@ -26,5 +26,14 @@ head($ua);
 
 
 <?php scripts();?>
+<script type="text/javascript">
+    $(function(){
+        app.user.sv = <?=$ua->sv?'true':'false'?>;
+        app.user.id = "<?=$ua->id?>";
+        app.user.tipo = "<?=$ua->tipo?>";
+        app.productView();
+    })
+
+</script>
 <?php
     foot();
