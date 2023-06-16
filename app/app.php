@@ -30,6 +30,18 @@ if(!empty($_POST)){
         $datosCita = new PostController();
         print_r($datosCita->nuevaCita($datos));
     }
+
+/*************************CONTROL PARA SUBIR UN PRODUCTO NUEVO O EDITARLO ***************/
+    $gp =  in_array('_gp',array_keys(filter_input_array(INPUT_POST))); //gp = guardar producto
+    if($gp){
+        $datos = filter_input_array(INPUT_POST,FILTER_SANITIZE_SPECIAL_CHARS);
+        $post = new PostController();
+        $post->createProduct($_POST);
+    }
+
+    //****************************TRAER UN PRODUCTO DESDE LA BD *********************/
+    
+
 }
 
 if(!empty($_GET)){
@@ -74,6 +86,14 @@ if(!empty($_GET)){
         $cita = new PostController();
         $horariosDisponibles = $cita->getHorarios($fecha);
         print_r(json_encode($horariosDisponibles));
+    }
+
+    /*****************TRAER PRODUCTOS AL CATALOGO****************************************** */
+    $tp = in_array('_tp', array_keys(filter_input_array(INPUT_GET)));
+    if($tp){
+        $pid = filter_input_array(INPUT_GET);
+        $product = new PostController();
+        print_r(json_encode($product->getProducts()));
     }
 
 }

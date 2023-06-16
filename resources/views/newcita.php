@@ -7,68 +7,68 @@ $ua = new LoginController;
 head($ua);
 ?>
 <style>
-#calendar {
-  display: flex;
-  flex-wrap: wrap;
-  width: 300px;
-  border: 1px solid #ccc;
-  font-family: Arial, sans-serif;
-}
+    #calendar {
+    display: flex;
+    flex-wrap: wrap;
+    width: 300px;
+    border: 1px solid #ccc;
+    font-family: Arial, sans-serif;
+    }
 
-.calendar-header {
-  width: 100%;
-  text-align: center;
-  font-weight: bold;
-  padding: 10px;
-  background-color: #f5f5f5;
-}
+    .calendar-header {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #f5f5f5;
+    }
 
-.calendar-row {
-  width: 100%;
-  display: flex;
-}
+    .calendar-row {
+    width: 100%;
+    display: flex;
+    }
 
-.weekdays-row {
-  width: 100%;
-  font-weight: bold;
-  border-bottom: 1px solid #ccc;
-}
+    .weekdays-row {
+    width: 100%;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    }
 
-.calendar-cell {
-  flex: 1;
-  padding: 10px;
-  text-align: center;
-}
+    .calendar-cell {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    }
 
-.weekday-cell {
-  background-color: #f5f5f5;
-}
+    .weekday-cell {
+    background-color: #f5f5f5;
+    }
 
-.day-cell {
-  cursor: pointer;
-}
+    .day-cell {
+    cursor: pointer;
+    }
 
-.current-day {
-  background-color: #5cb85c;
-  color: #fff;
-}
+    .current-day {
+    background-color: #5cb85c;
+    color: #fff;
+    }
 
-.weekend {
-  background-color: #d9534f;
-  color: #fff;
-}
+    .weekend {
+    background-color: #d9534f;
+    color: #fff;
+    }
 
-.available-schedule {
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #f5f5f5;
-}
+    .available-schedule {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    }
 </style>
 
 
     <div class="row mx-auto mt-2" style="width: 90%;">
         <div class="alert alert-success" role="alert">
-            Verifica la disponibilidad de tu cita en la fecha correspondiente
+            Verifica la disponibilidad de tu cita en el calendario de seleccion
         </div>
     </div>
     
@@ -99,7 +99,7 @@ head($ua);
                     </div>
 
                     <label for="cliente">Nombre:</label>
-                    <input class="form-control m-2" type="text" id="cliente" name="nombre_cliente" required>
+                    <input class="form-control m-2" type="text" id="cliente" name="nombre_cliente" placeholder="Ejem: <?=$ua->name?>" required>
 
                     <label for="tipo_cita">Tipo de Cita:</label>
                     <select class="form-select m-2" id="tipo_cita" aria-label="Example select with button addon">

@@ -4,6 +4,7 @@
 
     use Models\cita;
     use Models\user;
+    use Models\products;
     use Controllers\auth\LoginController as LoginController;
 
 class PostController {
@@ -78,4 +79,33 @@ class PostController {
         return $result;
     }
     
+
+    /********************** Métodos para el manejo de los productos ***************** */
+    public function createProduct($datos){
+        $product = new products();
+        $check = @getimagesize($_FILES['thumb']['tmp_name']);
+        if ($check !== false) {
+            $carpeta_destino = 'pimg/';
+            $archivo_subido = $carpeta_destino . $_FILES['thumb']['name'];
+            move_uploaded_file($_FILES['thumb']['tmp_name'], $archivo_subido);
+
+            $product->valores = [$datos['type'],
+                                 $datos['product_name'], 
+                                 $datos['description'], 
+                                 $_FILES['thumb']['name'], 
+                                 $datos['price']];
+            $result = $product->create();
+            header('Location: /cisnatura/resources/views/catalogo.php');
+            exit;
+        } else {
+            echo "Error al subir el archivo";
+        }
+    }
+
+    public function getProducts(){
+        $product = new products();
+        $result = $product->get();
+        return $result;
+    }
+
 }

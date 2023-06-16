@@ -19,7 +19,7 @@
     <div id="app" class="container-fluid p-0">
         <header class="row m-0 bg-dark " data-bs-theme="dark">
             <div class="col-9">
-                <h1 class="ml-3 mt-2">Tienda CISnatura</h1>
+                <h1 class="ml-3 mt-2">CISnatura</h1>
             </div>
             <div class="col-3 mt-2">
                 <form class="d-flex" role="search">
