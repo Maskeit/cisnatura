@@ -117,30 +117,30 @@ head($ua);
                 </form>
                 <!-- Modal -->
                     <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Seleccionar Fecha</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                        <div class="row">
-                            <div class="col-8">
-                            <div id="calendar"></div>
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Seleccionar Fecha</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="col-4">
-                            <div id="available-dates">
-                                <h4>Horarios disponiles:</h4>
+                            <div class="modal-body">
+                            <div class="row">
+                                <div class="col-8">
+                                <div id="calendar"></div>
+                                </div>
+                                <div class="col-4">
+                                <div id="available-dates">
+                                    <h4>Horarios disponiles:</h4>
+                                </div>
+                                </div>
                             </div>
                             </div>
-                        </div>
-                        </div>
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hecho</button>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hecho</button>
+                            </div>
+                            </div>
                         </div>
-                        </div>
-                    </div>
                     </div>
 
             </div>
@@ -207,3 +207,31 @@ head($ua);
 
 <?php
     foot();
+?>
+
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">$Nombre de tintura </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <div class="row">
+            <div class="col-8">
+                $thumb/imagen
+            </div>
+            <div class="col-4">
+            <div id="available-dates">
+                <h4>Horarios disponiles:</h4>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">COMPRAR</button>
+        </div>
+        </div>
+    </div>
+</div>

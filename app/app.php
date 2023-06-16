@@ -36,11 +36,8 @@ if(!empty($_POST)){
     if($gp){
         $datos = filter_input_array(INPUT_POST,FILTER_SANITIZE_SPECIAL_CHARS);
         $post = new PostController();
-        $post->createProduct($_POST);
+        $post->createProduct($datos);
     }
-
-    //****************************TRAER UN PRODUCTO DESDE LA BD *********************/
-    
 
 }
 
@@ -94,6 +91,13 @@ if(!empty($_GET)){
         $pid = filter_input_array(INPUT_GET);
         $product = new PostController();
         print_r(json_encode($product->getProducts()));
+    }
+    /********muestra el prodcuto seleccionado */
+    $vp = in_array('_vp', array_keys(filter_input_array(INPUT_GET)));
+    if($vp){
+        $pid = filter_input_array(INPUT_GET)['pid'];
+        $product = new PostController();
+        print_r(json_encode($product->getProduct($pid)));
     }
 
 }

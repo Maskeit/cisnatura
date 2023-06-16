@@ -86,6 +86,9 @@ class PostController {
         $check = @getimagesize($_FILES['thumb']['tmp_name']);
         if ($check !== false) {
             $carpeta_destino = 'pimg/';
+            if (!is_dir($carpeta_destino)) {
+                mkdir($carpeta_destino, 0777, true);
+            }
             $archivo_subido = $carpeta_destino . $_FILES['thumb']['name'];
             move_uploaded_file($_FILES['thumb']['tmp_name'], $archivo_subido);
 
@@ -95,8 +98,7 @@ class PostController {
                                  $_FILES['thumb']['name'], 
                                  $datos['price']];
             $result = $product->create();
-            header('Location: /cisnatura/resources/views/catalogo.php');
-            exit;
+            header('Location: /cisnatura/resources/views/admin/newproduct.php');
         } else {
             echo "Error al subir el archivo";
         }
@@ -105,6 +107,13 @@ class PostController {
     public function getProducts(){
         $product = new products();
         $result = $product->get();
+        return $result;
+    }
+
+    public function getProduct($pid){
+        $product = new products();
+        $result = $product->where([['id',$pid]])
+                          ->get();
         return $result;
     }
 

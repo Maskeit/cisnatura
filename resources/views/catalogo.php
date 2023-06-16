@@ -13,14 +13,30 @@ head($ua);
 </style>
 
 <div class="container">
+    <h2 class="wp-block-heading mt-5" style="text-decoration: none;">
+        Cátalogo Cisnatura
+    </h2>
     <div class="row justify-content-center mt-4 mb-3">
-        <h2 class="wp-block-heading mt-5" style="text-decoration: none;">
-            Cátalogo Cisnatura
-        </h2>
-        <div id="product-card" class="col-md-3 my-3 col-sm-8">
+
+        <div id="product-card" class="content">
             <!-- aqui van los productos -->
-            
+
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="productModalLabel">Detalles del Producto</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="productModalBody">
+                        <!-- Aquí se mostrarán los datos del producto -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
