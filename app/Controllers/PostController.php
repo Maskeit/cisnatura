@@ -93,6 +93,7 @@ class PostController {
             move_uploaded_file($_FILES['thumb']['tmp_name'], $archivo_subido);
 
             $product->valores = [$datos['type'],
+                                 $datos['extracto'],
                                  $datos['product_name'], 
                                  $datos['description'], 
                                  $_FILES['thumb']['name'], 
@@ -102,6 +103,13 @@ class PostController {
         } else {
             echo "Error al subir el archivo";
         }
+    }
+
+    public function updateProduct($pid){
+        $product = new products();
+        $result = $product->where([['id',$pid]])
+                          ->update();
+        return $result;
     }
 
     public function getProducts(){
@@ -116,5 +124,7 @@ class PostController {
                           ->get();
         return $result;
     }
+
+
 
 }

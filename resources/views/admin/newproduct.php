@@ -11,7 +11,7 @@ head($ua);
     <div class="row justify-content-center mt-4 mb-3">
         <h3>Sube tu Producto</h3>
         <form action="../../../app/app.php" method="POST" enctype="multipart/form-data">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-body">
                     <input type="hidden" name="uid" value="<?=$ua->id?>">
                     <input type="hidden" name="_gp" value="true">
@@ -25,8 +25,12 @@ head($ua);
                         <label for="product_name" class="form-label">Nombre del Producto</label>
                         <input type="text" name="product_name" id="product_name" class="form-control" placeholder="Ejemplo: Tintura" required>
                     </div>
+                    <div class="mb-3 mt-2">
+                        <label for="extracto" class="form-label">Pequeña Descripcion del producto</label>
+                        <input type="text" name="extracto" id="extracto" class="form-control" placeholder="" required>
+                    </div>
                     <div class="mb-3">
-                        <label for="description" class="form-label">Descripción del Producto</label>
+                        <label for="description" class="form-label">Descripción completa del Producto</label>
                         <textarea name="description" id="description" class="form-control" cols="20" rows="5"></textarea>
                     </div>
                     <div class="mb-3">
@@ -43,8 +47,6 @@ head($ua);
                 </div>
             </div>
         </form>
-
-
     </div>
 </section>
 <?php 

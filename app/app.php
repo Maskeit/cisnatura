@@ -34,9 +34,16 @@ if(!empty($_POST)){
 /*************************CONTROL PARA SUBIR UN PRODUCTO NUEVO O EDITARLO ***************/
     $gp =  in_array('_gp',array_keys(filter_input_array(INPUT_POST))); //gp = guardar producto
     if($gp){
+        $pid = filter_input_array(INPUT_POST,FILTER_SANITIZE_SPECIAL_CHARS)['pid'];
+        $post = new PostController();
+        $post->createProduct($pid);
+    }
+
+    $edp =  in_array('_ep',array_keys(filter_input_array(INPUT_POST))); //gp = guardar producto
+    if($edp){
         $datos = filter_input_array(INPUT_POST,FILTER_SANITIZE_SPECIAL_CHARS);
         $post = new PostController();
-        $post->createProduct($datos);
+        $post->updateProduct($datos);
     }
 
 }
@@ -98,6 +105,13 @@ if(!empty($_GET)){
         $pid = filter_input_array(INPUT_GET)['pid'];
         $product = new PostController();
         print_r(json_encode($product->getProduct($pid)));
+    }
+    /**************trae los productos a editar********* */
+    $tpe = in_array('_tpe', array_keys(filter_input_array(INPUT_GET)));
+    if($tpe){
+        $pid = filter_input_array(INPUT_GET);
+        $product = new PostController();
+        print_r(json_encode($product->getProducts()));
     }
 
 }

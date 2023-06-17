@@ -17,6 +17,26 @@ head($ua);
         Cátalogo Cisnatura
     </h2>
     <div class="row justify-content-center mt-4 mb-3">
+        <?php if(!is_null($ua) && $ua->sv && $ua->tipo ==1){ ?>
+        <div id="product-card-edit" class="content">
+            <h3>Solo <?=$ua->name?>  puede ver esto y editarlo</h3>
+            <!-- aqui van los productos que se pueden editar -->
+        </div>
+                <!-- Modal para editar producto -->
+        <div class="modal fade" id="productModalEdit" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="productModalLabel">Edita los Detalles</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="productModalBodyEdit">
+                        <!-- Aquí se mostrarán los datos del producto -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php } else { ?>        
 
         <div id="product-card" class="content">
             <!-- aqui van los productos -->
@@ -36,6 +56,7 @@ head($ua);
                 </div>
             </div>
         </div>
+        <?php } ?>
 
     </div>
 </div>
@@ -47,7 +68,11 @@ head($ua);
         app.user.sv = <?=$ua->sv?'true':'false'?>;
         app.user.id = "<?=$ua->id?>";
         app.user.tipo = "<?=$ua->tipo?>";
-        app.productView();
+        if(app.user.tipo == 1){
+            app.productEdit();
+        }else{
+            app.productView();
+        }
     })
 
 </script>
