@@ -58,7 +58,7 @@ const app = {
                                         <h5>${product.product_name}</h5>
                                     </div>
                                     <div class="col">
-                                        <h6>${product.price}<i class="bi bi-currency-dollar"></i></h6>
+                                        <h6><i class="bi bi-currency-dollar"></i> ${product.price}</h6>
                                     </div>
                                 </div>
                                 <p class="card-text">${product.extracto}</p>
@@ -141,20 +141,32 @@ const app = {
 
     editSingleProduct: function(pid){
         const productID = pid;
+        console.log(productID);
         fetch(this.routes.singleproduct+ "?_vp&pid="+ pid)
         .then(resp => resp.json())
         .then(presp => {
             const product = JSON.parse(presp);
             let html=`
-                <textarea name="product_name" id="product_name" class="form-control" cols="1" rows="1">${product[0].product_name}</textarea>
+                <label for="product_name" class="form-label">Titulo</label>
+                <input type="text" name="product_name" id="product_name" class="form-control" value="${product[0].product_name}" aria-label="product_name">    
+
             <img src="/cisnatura/app/pimg/${product[0].thumb}" class="card-img-top" alt="...">
                 <label for="thumb" class="form-label">Cambiar Imagen del producto</label>
                 <input class="form-control" name="thumb" type="file" id="thumb" required>
-            <textarea name="description" id="description" class="form-control" cols="20" rows="5">${product[0].description}</textarea>
+                
+                <div class="input-group">
+                    <span class="input-group-text">Descripcion</span>
+                    <textarea class="form-control" type="text" name="description" id="description" value="" aria-label="product_name">${product[0].description}</textarea>
+                </div>
+
                 <label for="price" class="form-label">Cambiar Precio</label>
-                <input type="text" name="price" class="form-control" placeholder="$${product[0].price}" aria-label="price">
+                <input type="text" name="price" class="form-control" value="${product[0].price}" aria-label="price">
+                
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="">Guardar cambios</button>
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="button" class="btn btn-secondary" onclick="app.deleteProduct(${productID})">Quitar producto<i class="bi bi-trash mx-1"></i></button>
+                    <button type="button" class="btn btn-primary" onclick="">Guardar cambios</button>
+                </div>
             </div>
             
             `;

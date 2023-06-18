@@ -105,19 +105,28 @@ class PostController {
         }
     }
 
-    public function updateProduct($pid){
+    public function updateProduct($pid,$datos){
         $product = new products();
+        $product->valores = [$datos['type'],
+                            $datos['extracto'],
+                            $datos['product_name'], 
+                            $datos['description'], 
+                            $_FILES['thumb']['name'], 
+                            $datos['price']
+                            ];
         $result = $product->where([['id',$pid]])
-                          ->update();
+                          ->update($datos['pid']);
         return $result;
     }
 
+    //trae todos los productos al catalogo    
     public function getProducts(){
         $product = new products();
         $result = $product->get();
         return $result;
     }
 
+    //Trae la info del producto seleccionado
     public function getProduct($pid){
         $product = new products();
         $result = $product->where([['id',$pid]])
