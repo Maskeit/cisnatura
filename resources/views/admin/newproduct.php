@@ -19,6 +19,7 @@ head($ua);
                         <option selected disabled>Selecciona un tipo de producto</option>
                         <option value="tintura">Tintura</option>
                         <option value="cds">Dioxido De Cloro</option>
+                        <option value="curso">Curso/taller</option>
                         <option value="otro">Otro</option>
                     </select>
                     <div class="mb-3 mt-2">

@@ -9,9 +9,6 @@ const app = {
         endsession :ruta + "/app/app.php?_logout",
         login : ruta +"/app/app.php",
 
-        citas : ruta +"/app/app.php",
-        lastcita : ruta +"/app/app.php?_lc",
-
         miscitas : ruta +"/resources/views/admin/miscitas.php",
         newproduct : ruta +"/resources/views/admin/newproduct.php",
 
@@ -20,6 +17,9 @@ const app = {
 
         allproducts : ruta +"/app/app.php?_tpe", //trae los productos a editar
         updateproduct : ruta +"/app/app.php",
+        deleteproduct : ruta+"/app/app.php",
+        //rutas de funciones del home
+        lastpostT : ruta + "/app/app.php?_lp",
     },
     view : function(route){
         location.replace(this.routes[route]);
@@ -30,10 +30,36 @@ const app = {
         tipo : "",
     },
 
+    ad:$('#aviso'),
     pc: $('#product-card'),
     pce: $('#product-card-edit'),
+    lpt : $('#product-tintura'),
+    fp : $('#filter-products'),
+
+    filterProducts: function(){
+        
+        let html = `<h4>Filter Product disabled</h4>`;
+        this.fp.html("");
+        html= `
+        <ul class="list-group">
+            <li class="list-group-item">Tinturas homeopaticas</li>
+            <li class="list-group-item">Dioxido de cloro</li>
+            <li class="list-group-item">Cursos</li>
+        </ul>
+        `;
+        this.fp.html(html);
+    },
 
     productView: function() {
+        this.ad.html("");
+        let advice =`
+        <div class="alert alert-warning" role="alert">
+            Inicia sesion para que puedas comprar y agregar productos
+        </div>
+        `;
+        if(this.user.sv == false){
+            this.ad.html(advice);
+        }
         let html = `<h2>No hay productos disponibles todavía</h2>`;
         this.pc.html("");
         fetch(this.routes.prevproducts)
@@ -49,9 +75,8 @@ const app = {
                     }
                     html += `
                     <div class="col-lg-3 col-md-4 col-sm-6 mb-3"> <!-- Se ajusta el número de columnas según el tamaño de pantalla -->
-                        <div class="card" style="width: 18rem; transition: transform 0.3s;" 
-                        onclick="app.singleProduct(${product.id})">
-                            <img src="/cisnatura/app/pimg/${product.thumb}" class="card-img-top" alt="...">
+                        <div class="card" style="width: 14rem; transition: transform 0.3s;">
+                            <img src="/cisnatura/app/pimg/${product.thumb}" class="card-img-top" alt="..." onclick="app.singleProduct(${product.id})">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-9">
@@ -63,8 +88,8 @@ const app = {
                                 </div>
                                 <p class="card-text">${product.extracto}</p>
                                 <div class="d-flex justify-content-between mt-4">
-                                    <button type="button" class="btn btn-success">COMPRAR</button>
-                                    <a href="#" class="btn btn-link link-success"><i class="bi bi-bag-plus"></i></a>
+                                    <button type="button" class="btn btn-success" ${this.user.sv ? '' : ' disabled'}  onclick="app.comprarProducto(${product.id})">COMPRAR</button>
+                                    <button type="button"  class="btn btn-link link-success"${this.user.sv ? '' : ' disabled'} onclick="app.agregarProducto(${product.id})"><i class="bi bi-bag-plus"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +109,6 @@ const app = {
             .then(resp => resp.json())
             .then(presp => {
                 const product = JSON.parse(presp);
-                console.log(product);
                 let html=`
                     <h5>${product[0].product_name}</h5>
                     <img src="/cisnatura/app/pimg/${product[0].thumb}" class="card-img-top" alt="...">
@@ -138,7 +162,6 @@ const app = {
         })
         .catch(err => console.error(err));
     },
-
     editSingleProduct: function(pid){
         const productID = pid;
         console.log(productID);
@@ -202,7 +225,6 @@ const app = {
     
         $("#productModalEdit").modal("hide");
     },
-
     guardarCambios : function(productID){
         const productName = document.getElementById("product_name").value;
         const productDescription = document.getElementById("description").value;
@@ -231,6 +253,84 @@ const app = {
         $("#productModalEdit").modal("hide");
         //aqui se deben recibir los datos nuevos para enviar la peticion al app.php para actualizar
     },
+    deleteProduct : function(productID){
+        const confirmado = confirm("Desea eliminar este producto?");
+        if(confirmado){
+            fetch(this.routes.deleteproduct + "?_dp=" + productID)
+                .then(resp => resp.json())
+                .then(data =>{
+                    if (data.r === "success") {
+                        let html=`
+                            <div class="alert alert-warning d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            <div>
+                                ¿Esta seguro de eliminar este producto?
+                            </div>
+                            </div>
+                        `;
+                        document.getElementById("deleteProductModalBody").innerHTML = html;
+                        $("#deleteProductModalBody").modal("show"); // Muestra el moda
+
+                        this.productEdit(); // Actualizar la lista de citas después de eliminar
+                    } else {
+                        alert("No se pudo borrar");
+                    }
+                }).catch(err => console.error(err));            
+        }
+    },
     
+    //funciones del main
+    lastPostTintura: function(limit) {
+        let html = "<h4>Aún no hay productos</h4>";
+        this.lpt.html("");
+      
+        fetch(this.routes.lastpostT + "&limit=" + limit)
+          .then(response => response.json())
+          .then(lpresp => {
+            const products = JSON.parse(lpresp);
+            if (products.length > 0) {//&& products[0].type === 'tintura'
+              html = `<div class="row">`;
+                let counter = 0;
+                for (let product of products) {
+                    if (counter % 4 === 0 && counter !== 0) {
+                        html += `</div><div class="row">`; // Cierra y abre una nueva fila después de cada grupo de 4 elementos
+                    }
+                    html += `
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-3"> <!-- Se ajusta el número de columnas según el tamaño de pantalla -->
+                        <div class="card" style="width: 18rem; transition: transform 0.3s;">
+                            <img src="/cisnatura/app/pimg/${product.thumb}" class="card-img-top" alt="..." onclick="app.singleProduct(${product.id})">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <h5>${product.product_name}</h5>
+                                    </div>
+                                    <div class="col">
+                                        <h6><i class="bi bi-currency-dollar"></i> ${product.price}</h6>
+                                    </div>
+                                </div>
+                                <p class="card-text">${product.extracto}</p>
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button type="button" class="btn btn-success" ${this.user.sv ? '' : ' disabled'}  onclick="app.comprarProducto(${product.id})">COMPRAR</button>
+                                    <button type="button"  class="btn btn-link link-success"${this.user.sv ? '' : ' disabled'} onclick="app.agregarProducto(${product.id})"><i class="bi bi-bag-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                    counter++;
+                }
+            }
+            this.lpt.html(html);            
+          })
+          .catch(err => console.error(err));
+    },
+    //Comprar
+    comprarProducto(pid){
+        alert("Redirigiendo a pagar..");
+    },
+    agregarProducto(pid){
+        alert("Agregado al carrito");
+    },
+      
 }
 

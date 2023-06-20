@@ -118,11 +118,18 @@ class PostController {
                           ->update($datos['pid']);
         return $result;
     }
+    public function deleteProduct($pid){
+        $product = new products();
+        $result = $product->delete($pid);                         
+        return $result;
+    }
 
     //trae todos los productos al catalogo    
-    public function getProducts(){
+    public function getProducts($limit=""){
         $product = new products();
-        $result = $product->get();
+        $result = $product->orderBy([['created_at','DESC']])
+                            ->limit($limit)
+                            ->get();
         return $result;
     }
 
