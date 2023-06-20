@@ -20,6 +20,7 @@ const app = {
         deleteproduct : ruta+"/app/app.php",
         //rutas de funciones del home
         lastpostT : ruta + "/app/app.php?_lp",
+        typeprod : ruta + "/app/app.php?_tof",
     },
     view : function(route){
         location.replace(this.routes[route]);
@@ -31,26 +32,34 @@ const app = {
     },
 
     ad:$('#aviso'),
+    fp : $('#filter-products'),
     pc: $('#product-card'),
     pce: $('#product-card-edit'),
     lpt : $('#product-tintura'),
-    fp : $('#filter-products'),
+    currentType : "",
 
-    filterProducts: function(){
-        
+    //Filtro de productos
+    listProducts: function(toggle){
         let html = `<h4>Filter Product disabled</h4>`;
+        let primera = true;
+        console.log(toggle);
+        const tta = toggle === 'tintura' ? " active" : "";
+        const tcds = toggle === 'cds' ? " active" : "";
+        const tcrs = toggle === 'curso' ? " active" : "";
         this.fp.html("");
         html= `
         <ul class="list-group">
-            <li class="list-group-item">Tinturas homeopaticas</li>
-            <li class="list-group-item">Dioxido de cloro</li>
-            <li class="list-group-item">Cursos</li>
+            <li class="list-group-item list-group-item-action ${tta}" onclick="app.productView('tintura', event)">Tinturas</li>
+            <li class="list-group-item list-group-item-action ${tcds}" onclick="app.productView('cds', event)">Dioxido de cloro</li>
+            <li class="list-group-item list-group-item-action ${tcrs}" onclick="app.productView('curso', event)">Cursos</li>            
         </ul>
         `;
         this.fp.html(html);
     },
-
-    productView: function() {
+    //Todos los productos
+    productView: function(tipo="tintura",event){
+        //console.log(tipo);
+        //event.preventDefault();
         this.ad.html("");
         let advice =`
         <div class="alert alert-warning" role="alert">
@@ -70,38 +79,41 @@ const app = {
                 html = `<div class="row">`;
                 let counter = 0;
                 for (let product of products) {
-                    if (counter % 4 === 0 && counter !== 0) {
-                        html += `</div><div class="row">`; // Cierra y abre una nueva fila después de cada grupo de 4 elementos
-                    }
-                    html += `
-                    <div class="col-lg-3 col-md-4 col-sm-6 mb-3"> <!-- Se ajusta el número de columnas según el tamaño de pantalla -->
-                        <div class="card" style="width: 14rem; transition: transform 0.3s;">
-                            <img src="/cisnatura/app/pimg/${product.thumb}" class="card-img-top" alt="..." onclick="app.singleProduct(${product.id})">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <h5>${product.product_name}</h5>
+                    if(product.type === tipo){
+                        if (counter % 4 === 0 && counter !== 0) {
+                            html += `</div><div class="row">`; // Cierra y abre una nueva fila después de cada grupo de 4 elementos
+                        }
+                        html += `
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-3"> <!-- Se ajusta el número de columnas según el tamaño de pantalla -->
+                            <div class="card" style="width: 14rem; transition: transform 0.3s;">
+                                <img src="/cisnatura/app/pimg/${product.thumb}" class="card-img-top" alt="..." onclick="app.singleProduct(${product.id})">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-9">
+                                            <h5>${product.product_name}</h5>
+                                        </div>
+                                        <div class="col">
+                                            <h6><i class="bi bi-currency-dollar"></i> ${product.price}</h6>
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <h6><i class="bi bi-currency-dollar"></i> ${product.price}</h6>
+                                    <p class="card-text">${product.extracto}</p>
+                                    <div class="d-flex justify-content-between mt-4">
+                                        <button type="button" class="btn btn-success" ${this.user.sv ? '' : ' disabled'}  onclick="app.comprarProducto(${product.id})">COMPRAR</button>
+                                        <button type="button"  class="btn btn-link link-success"${this.user.sv ? '' : ' disabled'} onclick="app.agregarProducto(${product.id})"><i class="bi bi-bag-plus"></i></button>
                                     </div>
-                                </div>
-                                <p class="card-text">${product.extracto}</p>
-                                <div class="d-flex justify-content-between mt-4">
-                                    <button type="button" class="btn btn-success" ${this.user.sv ? '' : ' disabled'}  onclick="app.comprarProducto(${product.id})">COMPRAR</button>
-                                    <button type="button"  class="btn btn-link link-success"${this.user.sv ? '' : ' disabled'} onclick="app.agregarProducto(${product.id})"><i class="bi bi-bag-plus"></i></button>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    `;
-                    counter++;
+                        `;
+                        counter++;
+                    }
                 }
                 html += `</div>`;
                 this.pc.html(html);
             }
         })
         .catch(err => console.error(err));
+        app.listProducts(this.currentType = tipo);
     },
 
     singleProduct : function(pid){//pid es el product id

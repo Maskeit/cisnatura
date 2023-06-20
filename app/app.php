@@ -108,7 +108,7 @@ if(!empty($_GET)){
     /*****************TRAER PRODUCTOS AL CATALOGO****************************************** */
     $tp = in_array('_tp', array_keys(filter_input_array(INPUT_GET)));
     if($tp){
-        $pid = filter_input_array(INPUT_GET);
+        //$pid = filter_input_array(INPUT_GET);
         $product = new PostController();
         print_r(json_encode($product->getProducts()));
     }
@@ -119,6 +119,7 @@ if(!empty($_GET)){
         $product = new PostController();
         print_r(json_encode($product->getProduct($pid)));
     }
+
     /**************trae los productos a editar********* */
     $tpe = in_array('_tpe', array_keys(filter_input_array(INPUT_GET)));
     if($tpe){

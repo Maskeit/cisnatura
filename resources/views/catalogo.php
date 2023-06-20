@@ -40,7 +40,7 @@ head($ua);
         </div>
         <?php } else { ?>
         <div class="col-3">
-            <div id="filter-products" class="lis-group">
+            <div id="filter-products" class="list-group">
                 <!-- clasificacion de productos -->
 
             </div>
@@ -91,7 +91,7 @@ head($ua);
             app.productEdit();
         }else{
             app.productView();
-            app.filterProducts();
+            app.listProducts();
         }
     })
 
