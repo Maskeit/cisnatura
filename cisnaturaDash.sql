@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-06-2023 a las 02:40:03
+-- Tiempo de generación: 21-06-2023 a las 00:43:43
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.2
 
@@ -48,11 +48,8 @@ INSERT INTO `cita` (`id`, `fecha_cita`, `hora_cita`, `nombre_cliente`, `tipo_cit
 (20, '2023-06-15', '10:00:00', 'Miguel Alejandre', 'Curso', '314 124 5623', 0, '2023-06-15 00:45:41', NULL, 0),
 (21, '2023-06-15', '12:00:00', 'Roberto', 'Asesoria', '314 124 5642', 0, '2023-06-15 00:46:28', NULL, 0),
 (22, '2023-06-16', '16:00:00', 'Juan Martin', 'Consulta', '314 4561212', 0, '2023-06-15 00:46:59', NULL, 0),
-(23, '2023-06-16', '18:00:00', 'Juan Martin', 'Consulta', '314 4561212', 0, '2023-06-15 00:47:12', NULL, 0),
 (24, '2023-06-17', '18:00:00', 'Juan Martin', 'Consulta', '314 4561212', 0, '2023-06-15 00:47:16', NULL, 0),
-(25, '2023-06-23', '18:00:00', 'Juan Martin', 'Consulta', '314 4561212', 0, '2023-06-15 00:47:21', NULL, 0),
 (26, '2023-06-23', '13:00:00', 'Jose Perez', 'Consulta', '314 1236789', 0, '2023-06-15 00:47:46', NULL, 0),
-(27, '2023-06-27', '17:00:00', 'Angel Adolfo', 'Asesoria', '314 123 7856', 0, '2023-06-15 00:48:20', NULL, 0),
 (28, '2023-06-27', '15:00:00', 'Angel Adolfo', 'Asesoria', '314 123 7856', 0, '2023-06-15 00:48:33', NULL, 0),
 (29, '2023-06-28', '15:00:00', 'Angel Villa', 'Asesoria', '314 123 7856', 0, '2023-06-15 00:48:46', NULL, 0),
 (30, '2023-06-28', '14:00:00', 'Angel Jimenez', 'Asesoria', '314 123 7856', 0, '2023-06-15 00:48:55', NULL, 0);
@@ -100,8 +97,11 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `type`, `extracto`, `product_name`, `description`, `thumb`, `price`, `active`, `created_at`, `updated_at`, `deleted`) VALUES
-(14, 'tintura', 'Tratamiento de cálculos biliares y renales', 'Tintura de Yumel', 'Tratamiento de cálculos biliares y renales: El Yumel es una planta medicinal poderosa para tratar los cálculos biliares y renales. Ayuda a deshacer y expulsar los cálculos de manera efectiva.&#13;&#10;Regulación de los lípidos en la sangre: Además de tratar los cálculos, el Yumel ayuda a regular los lípidos en la sangre, como el colesterol y los triglicéridos.&#13;&#10;Control de los niveles de glucosa: El Yumel también contribuye a regular los niveles de glucosa en la sangre, lo que lo hace útil en el tratamiento de la diabetes.&#13;&#10;Propiedades diuréticas: La planta de Yumel tiene propiedades diuréticas, lo que la vuelve efectiva en el tratamiento de las infecciones urinarias.&#13;&#10;', 'TINTURA DE YUMEL.jpeg', '95', 1, '2023-06-16 21:45:10', NULL, 0),
-(15, 'tintura', 'Insuficiencia venosa', 'Tintura de CAMELLIA', 'Propiedades y beneficios&#13;&#10;Insuficiencia venosa: Esta fórmula es efectiva para tratar problemas de insuficiencia venosa, como hemorroides (incluidas las sangrantes), varices, flebitis, adormecimiento de pies y manos, hormigueos o piernas pesadas.&#13;&#10;Efecto venotónico y vasodilatador: Se atribuye a esta fórmula un efecto venotónico y vasodilatador. Ayuda a aumentar la elasticidad de las venas y la resistencia de los capilares, lo cual resulta útil en heridas con sangrado y hemorragias nasales.&#13;&#10;Enfermedades del sistema circulatorio y corazón: Esta tintura herbolaria también se utiliza para tratar enfermedades que afectan el sistema circulatorio y el corazón. Es útil tanto en casos de presión arterial alta como baja, aterosclerosis (endurecimiento de las arterias) y colesterol alto.&#13;&#10;', 'CAMELLIA.jpeg', '95', 1, '2023-06-16 21:45:10', NULL, 0);
+(19, 'tintura', 'asdastwetgfvgdf', 'asdasdasd', 'ertqwefdfq4rfd', 'VALERI.jpeg', '78', 1, '2023-06-19 23:58:02', NULL, 0),
+(20, 'tintura', 'h grdhfdghd56dg', 'h6hfg dghfgf', 'hdfghdrtshdfgsgdfh', 'SPICIGERA.jpeg', '65', 1, '2023-06-19 23:58:15', NULL, 0),
+(22, 'tintura', 'asdasdasd', 'Lo que sea', 'asdasd', 'TINTURA DE BLANCO.jpeg', '78', 1, '2023-06-20 01:59:47', NULL, 0),
+(23, 'tintura', 'fgasdfasdf', 'dasdasda', 'egrfsdfwerf', 'VALERI.jpeg', '454', 1, '2023-06-20 01:59:59', NULL, 0),
+(24, 'cds', 'asdahsdñaolsda', 'Dioxido', 'dafdsfhalfuasdfasdf', 'SENNA.jpeg', '78', 1, '2023-06-20 02:00:14', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -173,7 +173,7 @@ ALTER TABLE `cita`
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
