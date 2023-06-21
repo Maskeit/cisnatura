@@ -48,12 +48,14 @@ const app = {
         const tta = toggle === 'tintura' ? " active" : "";
         const tcds = toggle === 'cds' ? " active" : "";
         const tcrs = toggle === 'curso' ? " active" : "";
+        const totr = toggle === 'otro' ? " active" : "";
         this.fp.html("");
         html= `
         <ul class="list-group">
             <li class="list-group-item list-group-item-action ${tta}" onclick="app.productView('tintura', event)">Tinturas</li>
             <li class="list-group-item list-group-item-action ${tcds}" onclick="app.productView('cds', event)">Dioxido de cloro</li>
-            <li class="list-group-item list-group-item-action ${tcrs}" onclick="app.productView('curso', event)">Cursos</li>            
+            <li class="list-group-item list-group-item-action ${tcrs}" onclick="app.productView('curso', event)">Cursos</li>
+            <li class="list-group-item list-group-item-action ${totr}" onclick="app.productView('otro', event)">Otros Productos</li>            
         </ul>
         `;
         this.fp.html(html);
