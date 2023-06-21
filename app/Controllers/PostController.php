@@ -105,22 +105,31 @@ class PostController {
         }
     }
 
-    public function updateProduct($pid,$datos){
+    public function updateProduct($datos){
         $product = new products();
-        $product->valores = [$datos['type'],
-                            $datos['extracto'],
-                            $datos['product_name'], 
-                            $datos['description'], 
-                            $_FILES['thumb']['name'], 
-                            $datos['price']
+        $product->valores = ['type'=>$datos['type'],
+                                'extracto'=>$datos['extracto'],
+                                'product_name'=>$datos['product_name'], 
+                                'description'=>$datos['description'], 
+                                'thumb'=>$_FILES['thumb']['name'], 
+                                'price'=>$datos['price']
                             ];
-        $result = $product->where([['id',$pid]])
-                          ->update($datos['pid']);
+        $result = $product->update($datos['id']);
+                          
         return $result;
+        header('Location: /cisnatura/resources/views/catalogo.php');
     }
     public function deleteProduct($pid){
         $product = new products();
         $result = $product->delete($pid);                         
+        return $result;
+    }
+
+    //cambiar status de la publicacion
+    public function toggleProdActive($pid){
+        $product = new products();
+        $result = $product->where([['id',$pid]])
+                          ->update([['active','not active']]);
         return $result;
     }
 

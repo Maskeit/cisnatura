@@ -1,4 +1,5 @@
 const ruta = "/cisnatura";
+const rutapp = "/cisnatura/app/app.php";
 const app = {
     routes : {
         home : ruta + "/resources/views/home.php",
@@ -18,6 +19,7 @@ const app = {
         allproducts : ruta +"/app/app.php?_tpe", //trae los productos a editar
         updateproduct : ruta +"/app/app.php",
         deleteproduct : ruta+"/app/app.php",
+        togglepost : ruta+"/app/app.php",
         //rutas de funciones del home
         lastpostT : ruta + "/app/app.php?_lp",
         typeprod : ruta + "/app/app.php?_tof",
@@ -79,7 +81,7 @@ const app = {
                 html = `<div class="row">`;
                 let counter = 0;
                 for (let product of products) {
-                    if(product.type === tipo){
+                    if(product.type === tipo && product.active === "1"){
                         if (counter % 4 === 0 && counter !== 0) {
                             html += `</div><div class="row">`; // Cierra y abre una nueva fila después de cada grupo de 4 elementos
                         }
@@ -181,89 +183,59 @@ const app = {
         .then(resp => resp.json())
         .then(presp => {
             const product = JSON.parse(presp);
+            const toggleAc = product[0].active === "1" ? "on" : "off";
+            console.log(product[0].thumb)
             let html=`
-                <label for="product_name" class="form-label">Titulo</label>
-                <input type="text" name="product_name" id="product_name" class="form-control" value="${product[0].product_name}" aria-label="product_name">    
-
-            <img src="/cisnatura/app/pimg/${product[0].thumb}" class="card-img-top" alt="...">
-                <label for="thumb" class="form-label">Cambiar Imagen del producto</label>
-                <input class="form-control" name="thumb" type="file" id="thumb" required>
+            <form action="${rutapp}" method="POST" enctype="multipart/form-data">
+                <div class="card-body">
+                    <input type="hidden" name="_ep" value="true">
+                    <label>Tipo de producto</label>
+                    <select class="form-select" name="type" aria-label="Default select example" required>
+                        <option selected disabled>${product[0].type}</option>
+                        <option value="tintura">Tintura</option>
+                        <option value="cds">Dioxido De Cloro</option>
+                        <option value="curso">Curso/taller</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                    <div class="mb-3 mt-2">
+                        <label for="product_name" class="form-label">Nombre del Producto</label>
+                        <input type="text" name="product_name" id="product_name" class="form-control" value="${product[0].product_name}" required>
+                    </div>
+                    <div class="mb-3 mt-2">
+                        <label for="extracto" class="form-label">Pequeña Descripcion del producto</label>
+                        <input type="text" name="extracto" id="extracto" class="form-control" value="${product[0].extracto}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Descripción completa del Producto</label>
+                        <textarea name="description" id="description" class="form-control" cols="10" rows="5" value="${product[0].description}"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="thumb" class="form-label">Sube una imagen para mostrar tu producto</label>
+                        <input class="form-control" name="thumb" type="file" id="thumb" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Precio del producto</label>
+                        <input type="text" name="price" class="form-control" value="${product[0].price}" aria-label="price" required>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-secondary" type="button" onclick="app.deleteProduct(${product[0].id})">Eliminar producto <i class="bi bi-trash"></i> </button>
+                    <button class="btn btn-primary" type="submit">Guardar<i class="bi bi-download"></i></button>
+                    <a href="#" class="btn btn-link active" 
+                    onclick="app.toggleProductActive(${product[0].id})"
+                    ><i class="bi bi-toggle-${toggleAc}"></i>
+                    </a>
                 
-                <div class="input-group">
-                    <span class="input-group-text">Descripcion</span>
-                    <textarea class="form-control" type="text" name="description" id="description" value="" aria-label="product_name">${product[0].description}</textarea>
                 </div>
 
-                <label for="price" class="form-label">Cambiar Precio</label>
-                <input type="text" name="price" class="form-control" value="${product[0].price}" aria-label="price">
-                
-            <div class="modal-footer">
-                <div class="d-flex justify-content-between mt-4">
-                    <button type="button" class="btn btn-secondary" onclick="app.deleteProduct(${productID})">Quitar producto<i class="bi bi-trash mx-1"></i></button>
-                    <button type="button" class="btn btn-primary" onclick="">Guardar cambios</button>
-                </div>
-            </div>
+        </form>
             
             `;
             document.getElementById("productModalBodyEdit").innerHTML = html;
             $("#productModalEdit").modal("show"); // Muestra el modal
         }).catch(err => console.error(err))
-        
-        /**proceso de actualizacion */
-
-        const productName = document.getElementById("product_name").value;
-        const productDescription = document.getElementById("description").value;
-        const productPrice = document.getElementById("price").value;
-        const thumbFile = document.getElementById("thumb").files[0];
-
-        const formData = new FormData();
-        formData.append("product_name", productName);
-        formData.append("description", productDescription);
-        formData.append("price", productPrice);
-        formData.append("thumb", thumbFile);
-
-        fetch(this.routes.updateproduct + "?_ep&pid=" + productID, {
-            method: "POST",
-            body: formData
-        })
-        .then(resp => resp.json())
-        .then(data => {
-            if(data.ok){
-                this.productEdit();
-            }
-            console.log("Producto actualizado:", data);
-        })
-        .catch(err => console.error(err));
     
         $("#productModalEdit").modal("hide");
-    },
-    guardarCambios : function(productID){
-        const productName = document.getElementById("product_name").value;
-        const productDescription = document.getElementById("description").value;
-        const productPrice = document.getElementById("price").value;
-        const thumbFile = document.getElementById("thumb").files[0];
-
-        const formData = new FormData();
-        formData.append("product_name", productName);
-        formData.append("description", productDescription);
-        formData.append("price", productPrice);
-        formData.append("thumb", thumbFile);
-
-        fetch(this.routes.updateproduct + "?_ep&pid=" + productID, {
-            method: "POST",
-            body: formData
-        })
-        .then(resp => resp.json())
-        .then(data => {
-            if(data.ok){
-                this.productEdit();
-            }
-            console.log("Producto actualizado:", data);
-        })
-        .catch(err => console.error(err));
-    
-        $("#productModalEdit").modal("hide");
-        //aqui se deben recibir los datos nuevos para enviar la peticion al app.php para actualizar
     },
     deleteProduct : function(productID){
         const confirmado = confirm("Desea eliminar este producto?");
@@ -272,23 +244,23 @@ const app = {
                 .then(resp => resp.json())
                 .then(data =>{
                     if (data.r === "success") {
-                        let html=`
-                            <div class="alert alert-warning d-flex align-items-center" role="alert">
-                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                            <div>
-                                ¿Esta seguro de eliminar este producto?
-                            </div>
-                            </div>
-                        `;
-                        document.getElementById("deleteProductModalBody").innerHTML = html;
-                        $("#deleteProductModalBody").modal("show"); // Muestra el moda
-
                         this.productEdit(); // Actualizar la lista de citas después de eliminar
                     } else {
                         alert("No se pudo borrar");
                     }
-                }).catch(err => console.error(err));            
+                }).catch(err => console.error(err));
+            $("#productModalEdit").modal("hide");            
         }
+    },
+    toggleProductActive : function(productID){
+        fetch(this.routes.togglepost + "?_tac="+productID)
+        .then( resp =>{
+            if(resp.ok){
+                alert("Se ha actualizado el estado del producto");
+                this.productEdit();
+                $("#productModalEdit").modal("hide");
+            }
+        }).catch( err => console.log(err));
     },
     
     //funciones del main
@@ -304,32 +276,35 @@ const app = {
               html = `<div class="row">`;
                 let counter = 0;
                 for (let product of products) {
-                    if (counter % 4 === 0 && counter !== 0) {
-                        html += `</div><div class="row">`; // Cierra y abre una nueva fila después de cada grupo de 4 elementos
-                    }
-                    html += `
-                    <div class="col-lg-3 col-md-4 col-sm-6 mb-3"> <!-- Se ajusta el número de columnas según el tamaño de pantalla -->
-                        <div class="card" style="width: 18rem; transition: transform 0.3s;">
-                            <img src="/cisnatura/app/pimg/${product.thumb}" class="card-img-top" alt="..." onclick="app.singleProduct(${product.id})">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <h5>${product.product_name}</h5>
+                    if(product.active === "1"){
+
+                        if (counter % 4 === 0 && counter !== 0) {
+                            html += `</div><div class="row">`; // Cierra y abre una nueva fila después de cada grupo de 4 elementos
+                        }
+                        html += `
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-3"> <!-- Se ajusta el número de columnas según el tamaño de pantalla -->
+                            <div class="card" style="width: 18rem; transition: transform 0.3s;">
+                                <img src="/cisnatura/app/pimg/${product.thumb}" class="card-img-top" alt="..." onclick="app.singleProduct(${product.id})">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-9">
+                                            <h5>${product.product_name}</h5>
+                                        </div>
+                                        <div class="col">
+                                            <h6><i class="bi bi-currency-dollar"></i> ${product.price}</h6>
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <h6><i class="bi bi-currency-dollar"></i> ${product.price}</h6>
+                                    <p class="card-text">${product.extracto}</p>
+                                    <div class="d-flex justify-content-between mt-4">
+                                        <button type="button" class="btn btn-success" ${this.user.sv ? '' : ' disabled'}  onclick="app.comprarProducto(${product.id})">COMPRAR</button>
+                                        <button type="button"  class="btn btn-link link-success"${this.user.sv ? '' : ' disabled'} onclick="app.agregarProducto(${product.id})"><i class="bi bi-bag-plus"></i></button>
                                     </div>
-                                </div>
-                                <p class="card-text">${product.extracto}</p>
-                                <div class="d-flex justify-content-between mt-4">
-                                    <button type="button" class="btn btn-success" ${this.user.sv ? '' : ' disabled'}  onclick="app.comprarProducto(${product.id})">COMPRAR</button>
-                                    <button type="button"  class="btn btn-link link-success"${this.user.sv ? '' : ' disabled'} onclick="app.agregarProducto(${product.id})"><i class="bi bi-bag-plus"></i></button>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    `;
-                    counter++;
+                        `;
+                        counter++;
+                    }
                 }
             }
             this.lpt.html(html);            

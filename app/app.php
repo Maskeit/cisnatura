@@ -37,14 +37,15 @@ if(!empty($_POST)){
         $datos = filter_input_array(INPUT_POST,FILTER_SANITIZE_SPECIAL_CHARS);
         $post = new PostController();
         $post->createProduct($datos);
+        print_r(json_encode($datos));
     }
-
+/************************EDITAR PRODUCTO ******************/
     $edp =  in_array('_ep',array_keys(filter_input_array(INPUT_POST)));
     if($edp){
-        $pid = filter_input_array(INPUT_POST,FILTER_SANITIZE_SPECIAL_CHARS)['pid'];
         $datos = filter_input_array(INPUT_POST,FILTER_SANITIZE_SPECIAL_CHARS);
         $post = new PostController();
-        $post->updateProduct($pid,$datos);
+        $post->updateProduct($datos);
+        print_r($datos);
     }
 
 }
@@ -97,6 +98,13 @@ if(!empty($_GET)){
         }
     }
 
+    $tac = in_array('_tac', array_keys(filter_input_array(INPUT_GET)));
+    if($tac){
+        $pid = filter_input(INPUT_GET, '_tac');
+        $product = new PostController();
+        print_r(json_encode(['r' => $product->toggleProdActive($pid)]));
+    }  
+
     /***************VERIFICAR HORARIOS DISPONIBLES */
     if (isset($_GET['_fecha'])) {
         $fecha = $_GET['_fecha'];
@@ -130,12 +138,7 @@ if(!empty($_GET)){
 
     //************CARGAR LOS POST MAS RECIENTES *******/
     //********EL DE TINTURAS */
-    // $lp = in_array('_lp', array_keys(filter_input_array(INPUT_GET)));
-    // if($lp){
-    //     $l = filter_input_array(INPUT_GET)["limit"];
-    //     $lastpost = new PostController();
-    //     print_r($lastpost->getProducts($l));
-    // }
+
     $lp = in_array('_lp', array_keys(filter_input_array(INPUT_GET)));
     if ($lp) {
         $l = filter_input_array(INPUT_GET)["limit"];
