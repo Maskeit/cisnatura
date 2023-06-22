@@ -31,7 +31,7 @@ if(!empty($_POST)){
         print_r($datosCita->nuevaCita($datos));
     }
 
-/*************************CONTROL PARA SUBIR UN PRODUCTO NUEVO O EDITARLO ***************/
+    /*************************CONTROL PARA SUBIR UN PRODUCTO NUEVO O EDITARLO ***************/
     $gp =  in_array('_gp',array_keys(filter_input_array(INPUT_POST))); //gp = guardar producto
     if($gp){
         $datos = filter_input_array(INPUT_POST,FILTER_SANITIZE_SPECIAL_CHARS);
@@ -47,6 +47,7 @@ if(!empty($_POST)){
         $post->updateProduct($datos);
         print_r($datos);
     }
+
 
 }
 
@@ -127,7 +128,13 @@ if(!empty($_GET)){
         $product = new PostController();
         print_r(json_encode($product->getProduct($pid)));
     }
-
+    /*************************CONTROL PARA AGREGAR PRODUCTOS A UN CARRITO************************************ */
+    $adp = in_array('_ap' ,array_keys(filter_input_array(INPUT_GET)));
+    if($adp){
+        $dato = filter_input_array(INPUT_GET);
+        $post = new PostController();        
+        print_r($post->addProduct($dato['uid'], $dato['pid']));
+    }
     /**************trae los productos a editar********* */
     $tpe = in_array('_tpe', array_keys(filter_input_array(INPUT_GET)));
     if($tpe){

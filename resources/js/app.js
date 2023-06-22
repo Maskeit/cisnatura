@@ -6,6 +6,7 @@ const app = {
         inisession : ruta + "/resources/views/auth/login.php",
         register : ruta + "/resources/views/auth/register.php",
         doregister : ruta + "/app/app.php",
+        carrito : ruta + "/resources/views/carrito.php",
         
         endsession :ruta + "/app/app.php?_logout",
         login : ruta +"/app/app.php",
@@ -15,6 +16,8 @@ const app = {
 
         prevproducts : ruta + "/app/app.php?_tp",
         singleproduct : ruta + "/app/app.php",
+        //botones de compra y add
+        addproduct : ruta + "/app/app.php?_ap",
 
         allproducts : ruta +"/app/app.php?_tpe", //trae los productos a editar
         updateproduct : ruta +"/app/app.php",
@@ -35,6 +38,7 @@ const app = {
 
     ad:$('#aviso'),
     fp : $('#filter-products'),
+    ap : $('#addproduct'), //cantidad de prodcutos en el carrito
     pc: $('#product-card'),
     pce: $('#product-card-edit'),
     lpt : $('#product-tintura'),
@@ -44,7 +48,7 @@ const app = {
     listProducts: function(toggle){
         let html = `<h4>Filter Product disabled</h4>`;
         let primera = true;
-        console.log(toggle);
+        //console.log(toggle);
         const tta = toggle === 'tintura' ? " active" : "";
         const tcds = toggle === 'cds' ? " active" : "";
         const tcrs = toggle === 'curso' ? " active" : "";
@@ -103,7 +107,10 @@ const app = {
                                     <p class="card-text">${product.extracto}</p>
                                     <div class="d-flex justify-content-between mt-4">
                                         <button type="button" class="btn btn-success" ${this.user.sv ? '' : ' disabled'}  onclick="app.comprarProducto(${product.id})">COMPRAR</button>
-                                        <button type="button"  class="btn btn-link link-success"${this.user.sv ? '' : ' disabled'} onclick="app.agregarProducto(${product.id})"><i class="bi bi-bag-plus"></i></button>
+                                        <button type="button"  
+                                            class="btn btn-link link-success"${this.user.sv ? '' : ' disabled'} 
+                                            onclick="app.agregarProducto(${product.id}, ${this.user.id},event)"><i class="bi bi-bag-plus"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -115,8 +122,7 @@ const app = {
                 html += `</div>`;
                 this.pc.html(html);
             }
-        })
-        .catch(err => console.error(err));
+        }).catch(err => console.error(err));
         app.listProducts(this.currentType = tipo);
     },
 
@@ -317,8 +323,23 @@ const app = {
     comprarProducto(pid){
         alert("Redirigiendo a pagar..");
     },
-    agregarProducto(pid){
-        alert("Agregado al carrito");
+    agregarProducto(uid,pid,e){
+        e.preventDefault();
+        alert("has agregado 1 al carrito");
+        //console.log("Se recibio", uid ,"y", pid);
+        this.ap.html("");
+        fetch(this.routes.addproduct + "&uid=" + uid + "&pid=" + pid)
+        .then(idresp => idresp.json())
+        .then(adprct =>{
+        const cant = JSON.parse(adprct);     
+            let html ="";
+            if(cant.length >0){
+                html=`
+                <span class="badge bg-secondary"></span>
+                `;
+            }
+        this.ap.html(html);
+        }).catch(err => console.error(err));
     },
       
 }
