@@ -109,7 +109,7 @@ const app = {
                                         <button type="button" class="btn btn-success" ${this.user.sv ? '' : ' disabled'}  onclick="app.comprarProducto(${product.id})">COMPRAR</button>
                                         <button type="button"  
                                             class="btn btn-link link-success"${this.user.sv ? '' : ' disabled'} 
-                                            onclick="app.agregarProducto(${product.id}, ${this.user.id},event)"><i class="bi bi-bag-plus"></i>
+                                            onclick="app.agregarProducto(${product.id}, ${this.user.id})"><i class="bi bi-bag-plus"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -323,24 +323,21 @@ const app = {
     comprarProducto(pid){
         alert("Redirigiendo a pagar..");
     },
-    agregarProducto(uid,pid,e){
-        e.preventDefault();
-        alert("has agregado 1 al carrito");
-        //console.log("Se recibio", uid ,"y", pid);
+    agregarProducto(pid, uid) {
+        //e.preventDefault(); 
+        let html = "";
         this.ap.html("");
-        fetch(this.routes.addproduct + "&uid=" + uid + "&pid=" + pid)
-        .then(idresp => idresp.json())
-        .then(adprct =>{
-        const cant = JSON.parse(adprct);     
-            let html ="";
-            if(cant.length >0){
-                html=`
-                <span class="badge bg-secondary"></span>
-                `;
-            }
-        this.ap.html(html);
-        }).catch(err => console.error(err));
+        fetch(this.routes.addproduct + "?pid=" + pid + "&uid=" + uid)
+            .then(response => response.text())
+            .then(data => {
+                const cantidad = JSON.parse(data);
+                console.log(cantidad);
+                // Resto del código
+            }).catch(error => console.error(error));
+
     },
+      
+      
       
 }
 

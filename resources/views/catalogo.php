@@ -14,11 +14,11 @@ head($ua);
 
 <div class="container">
     <h2 class="wp-block-heading mt-5" style="text-decoration: none;">
-        Cátalogo Cisnatura  
+        Cátalogo Cisnatura  <?php if(!is_null($ua) && $ua->sv && $ua->tipo ==2){ ?>
                             <button type="button" class="btn btn-primary" onclick="app.view('carrito')">
                             <i class="bi bi-cart-plus"></i> 
                             Carrito <div id="addproduct"></div>
-                            </button>
+                            </button><?php } ?>
     </h2>
     <div id="aviso" >
     </div>

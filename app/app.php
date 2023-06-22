@@ -4,6 +4,7 @@ namespace app;
 
 require_once "autoloader.php";
 use Controllers\PostController as PostController;
+use Controllers\CarritoController as CarritoController;
 use Controllers\auth\LoginController as LoginController;
 
 if(!empty($_POST)){
@@ -39,7 +40,7 @@ if(!empty($_POST)){
         $post->createProduct($datos);
         print_r(json_encode($datos));
     }
-/************************EDITAR PRODUCTO ******************/
+    /************************EDITAR PRODUCTO ******************/
     $edp =  in_array('_ep',array_keys(filter_input_array(INPUT_POST)));
     if($edp){
         $datos = filter_input_array(INPUT_POST,FILTER_SANITIZE_SPECIAL_CHARS);
@@ -47,7 +48,6 @@ if(!empty($_POST)){
         $post->updateProduct($datos);
         print_r($datos);
     }
-
 
 }
 
@@ -128,13 +128,7 @@ if(!empty($_GET)){
         $product = new PostController();
         print_r(json_encode($product->getProduct($pid)));
     }
-    /*************************CONTROL PARA AGREGAR PRODUCTOS A UN CARRITO************************************ */
-    $adp = in_array('_ap' ,array_keys(filter_input_array(INPUT_GET)));
-    if($adp){
-        $dato = filter_input_array(INPUT_GET);
-        $post = new PostController();        
-        print_r($post->addProduct($dato['uid'], $dato['pid']));
-    }
+
     /**************trae los productos a editar********* */
     $tpe = in_array('_tpe', array_keys(filter_input_array(INPUT_GET)));
     if($tpe){
@@ -153,5 +147,16 @@ if(!empty($_GET)){
         $result = $lastpost->getProducts($l);
         echo json_encode($result);
     }
+
+/******CONTROL PARA AGREGAR PRODUCTOS A UN CARRITO********/
+    $adp = in_array('_ap', array_keys(filter_input_array(INPUT_GET)));
+    if ($adp) {
+        $pid = filter_input_array(INPUT_GET)['pid'];
+        $uid = filter_input_array(INPUT_GET)['uid'];
+        $carrito = new CarritoController();
+        
+        print_r(json_encode($carrito->agregarProducto($pid, $uid)));
+    }
+
 
 }

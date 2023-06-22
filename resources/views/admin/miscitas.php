@@ -4,6 +4,12 @@ require "../../../app/autoloader.php";
 include "../layouts/main.php";
 use Controllers\auth\LoginController as LoginController;
 $ua = new LoginController;
+$sessionData = $ua->sessionValidate();
+if (!$sessionData) {
+    // No se ha iniciado sesión, redirigir a la página de inicio de sesión
+    header("Location: /cisnatura/resources/views/auth/login.php");
+    exit;
+}
 head($ua);
 ?>
 

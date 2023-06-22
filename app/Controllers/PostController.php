@@ -5,7 +5,6 @@
     use Models\cita;
     use Models\user;
     use Models\products;
-    use Models\pedidos;
     use Controllers\auth\LoginController as LoginController;
 
 class PostController {
@@ -149,16 +148,6 @@ class PostController {
         $result = $product->where([['id',$pid]])
                           ->get();
         return $result;
-    }
-
-    //agregar al carrito 
-    public function addProduct($uid, $pid,$cant){
-        $pedidos = new pedidos();
-        $pedidos ->valores=[$datos['userId'],
-                            $datos['productsId'],
-                            $datos['cantidad']
-                            ];
-        $result = $pedidos->create();
     }
 
 }
