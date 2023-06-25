@@ -21,6 +21,7 @@ head($ua);
                         <thead>
                             <tr>
                                 <th>Producto</th>
+                                <th>Img</th>
                                 <th>Descripcion</th>
                                 <th>cantidad</th>
                                 <th>precio unitario</th>
@@ -50,5 +51,12 @@ head($ua);
 </section>
 
 <?php 
-    scripts();
+    scripts('app_car');
+?>
+<script>
+$(function(){
+    app_car.contentCar(<?=$ua->id?>);
+})
+</script>
+<?php    
     foot();

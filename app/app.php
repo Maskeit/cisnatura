@@ -157,6 +157,18 @@ if(!empty($_GET)){
         
         print_r(json_encode($carrito->agregarProducto($pid, $uid)));
     }
-
-
+    /**********Ver cantidad de productos en el carrito *****/
+    $np = in_array('_np', array_keys(filter_input_array(INPUT_GET)));
+    if ($np) {
+        $uid = filter_input_array(INPUT_GET)['_np'];
+        $carrito = new CarritoController();
+        print_r($carrito->cantProductos($uid));
+    }
+    /**********Ver los productos del carrito *****/
+    $np = in_array('_vcar', array_keys(filter_input_array(INPUT_GET)));
+    if ($np) {
+        $uid = filter_input_array(INPUT_GET)['_vcar'];
+        $carrito = new CarritoController();
+        print_r($carrito->allCar($uid));
+    }
 }

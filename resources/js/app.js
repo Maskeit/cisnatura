@@ -18,6 +18,7 @@ const app = {
         singleproduct : ruta + "/app/app.php",
         //botones de compra y add
         addproduct : ruta + "/app/app.php?_ap",
+        vercant: ruta + "/app/app.php",
 
         allproducts : ruta +"/app/app.php?_tpe", //trae los productos a editar
         updateproduct : ruta +"/app/app.php",
@@ -336,8 +337,22 @@ const app = {
             }).catch(error => console.error(error));
 
     },
-      
-      
-      
+    //cantidad de prod en carrito
+    verCant(uid){
+    //const uid = this.user.id;
+    let html = "";
+    this.ap.html("");
+    fetch(this.routes.vercant + "?_np=" + uid)
+        .then(response => response.text())
+        .then(data => {
+            const cantidad = JSON.parse(data);
+            console.log(cantidad);
+            if(cantidad.length>0){
+                html = `<span class="badge bg-danger">${cantidad[0].cantidad}</span>`;
+            }
+            this.ap.html(html);
+            // Resto del código
+        }).catch(error => console.error(error));
+    },      
 }
 

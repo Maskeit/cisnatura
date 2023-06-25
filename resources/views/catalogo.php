@@ -96,6 +96,7 @@ head($ua);
         }else{
             app.productView();
             app.listProducts();
+            app.verCant(<?=$ua->id?>);
         }
     })
 
