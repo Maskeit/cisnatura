@@ -148,15 +148,16 @@ if(!empty($_GET)){
         echo json_encode($result);
     }
 
-/******CONTROL PARA AGREGAR PRODUCTOS A UN CARRITO********/
-    $adp = in_array('_ap', array_keys(filter_input_array(INPUT_GET)));
-    if ($adp) {
+    /******** CONTROL PARA AGREGAR PRODUCTOS A UN CARRITO ********/
+    $ap = in_array('_ap', array_keys(filter_input_array(INPUT_GET)));
+    if ($ap) {
         $pid = filter_input_array(INPUT_GET)['pid'];
         $uid = filter_input_array(INPUT_GET)['uid'];
+        $tt = filter_input_array(INPUT_GET)['tt'];
         $carrito = new CarritoController();
-        
-        print_r(json_encode($carrito->agregarProducto($pid, $uid)));
+        $carrito->agregarProducto($pid, $uid, $tt);
     }
+
     /**********Ver cantidad de productos en el carrito *****/
     $np = in_array('_np', array_keys(filter_input_array(INPUT_GET)));
     if ($np) {

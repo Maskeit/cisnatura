@@ -110,7 +110,7 @@ const app = {
                                         <button type="button" class="btn btn-success" ${this.user.sv ? '' : ' disabled'}  onclick="app.comprarProducto(${product.id})">COMPRAR</button>
                                         <button type="button"  
                                             class="btn btn-link link-success"${this.user.sv ? '' : ' disabled'} 
-                                            onclick="app.agregarProducto(${product.id}, ${this.user.id})"><i class="bi bi-bag-plus"></i>
+                                            onclick="app.agregarProducto(${product.id}, ${this.user.id},1)"><i class="bi bi-bag-plus"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -324,18 +324,15 @@ const app = {
     comprarProducto(pid){
         alert("Redirigiendo a pagar..");
     },
-    agregarProducto(pid, uid) {
+    agregarProducto(pid, uid,tt) {
         //e.preventDefault(); 
-        let html = "";
-        this.ap.html("");
-        fetch(this.routes.addproduct + "?pid=" + pid + "&uid=" + uid)
+        fetch(this.routes.addproduct + "&pid=" + pid + "&uid=" + uid + "&tt="+tt)
             .then(response => response.text())
             .then(data => {
-                const cantidad = JSON.parse(data);
-                console.log(cantidad);
+                const addp = JSON.parse(data); //addproduct
+                console.log(addp);
                 // Resto del código
             }).catch(error => console.error(error));
-
     },
     //cantidad de prod en carrito
     verCant(uid){
@@ -348,7 +345,7 @@ const app = {
             const cantidad = JSON.parse(data);
             console.log(cantidad);
             if(cantidad.length>0){
-                html = `<span class="badge bg-danger">${cantidad[0].cantidad}</span>`;
+                html = `<span class="badge bg-danger">${cantidad[0].tt}</span>`;
             }
             this.ap.html(html);
             // Resto del código

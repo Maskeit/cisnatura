@@ -22,43 +22,43 @@ class CarritoController {
      * agregar productos al carrito
      */
 
-    public function agregarProducto($pid, $uid) {
+    public function agregarProducto($pid, $uid,$tt) {
         // Verificar si el producto ya está en el carrito del usuario
         $productoEnCarrito = $this->buscarProductoEnCarrito($pid, $uid);
-      
-        if ($productoEnCarrito) {
-          // Si el producto ya está en el carrito, incrementar la cantidad
-          $productoEnCarrito->incrementarCantidad();
-        } else {
-          // Si el producto no está en el carrito, agregarlo
-          $this->agregarProductoAlCarrito($pid, $uid);
-        }
-      
-        // Enviar una respuesta adecuada al cliente, como un JSON con los detalles del producto agregado
-        echo json_encode(["success" => true, "message" => "Producto agregado al carrito"]);
+        if(is_null($productoEnCarrito)){
+            return $this->agregarProductoAlCarrito($pid, $uid, $tt);
+        }else{
+            $carrito = new carrito();
+            $result = $carrito->where([['userId', $uid],['productId', $pid]])
+                              ->update([['cantidad', 'cantidad + 1']]);
+            return $result;
+        }        
     }
       
     public function buscarProductoEnCarrito($pid, $uid) {
-    $carrito = new carrito();
-    $result = $carrito->where([['productId', $pid], ['userId', $uid]])
-                      ->get();
-    
-        if (count(json_decode($result)) > 0) {
-            return $result[0];
-        }
-    
-        return null;
-    }
-      
-    public function agregarProductoAlCarrito($pid, $uid) {
         $carrito = new carrito();
-        $carrito->valores=[$pid['productId'],$uid['userId'], 1];
-        $carrito->create();
-        return;
+        $result = $carrito->where([['userId',$uid],['productId',$pid]])
+                          ->get();
+        if($result){
+            return $result[0];
+        }  
+    }
+    public function agregarProductoAlCarrito($pid, $uid, $tt) {
+        $carrito = new carrito();
+        $carrito->valores = [
+            'userId' => $uid['userId'],
+            'productId' => $pid['productId'],
+            'cantidad' => $tt['cantidad']
+        ];
+        
+        $result = $carrito->create();
+        return $result;
     }
     public function cantProductos($uid){
         $carrito = new carrito();
-        $result = $carrito->where([['userId',$this->userId]])->get();
+        $result = $carrito->count()//tt
+                          ->where([['userId',$this->userId]])                          
+                          ->get();
         return $result;
     }
     // public function allCar($uid = "") {
