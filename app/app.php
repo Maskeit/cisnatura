@@ -151,11 +151,16 @@ if(!empty($_GET)){
     /******** CONTROL PARA AGREGAR PRODUCTOS A UN CARRITO ********/
     $ap = in_array('_ap', array_keys(filter_input_array(INPUT_GET)));
     if ($ap) {
-        $pid = filter_input_array(INPUT_GET)['pid'];
-        $uid = filter_input_array(INPUT_GET)['uid'];
-        $tt = filter_input_array(INPUT_GET)['tt'];
+        $pid = filter_input(INPUT_GET,'pid');
+        $uid = filter_input(INPUT_GET,'uid');
+        $tt = filter_input(INPUT_GET,'tt');
         $carrito = new CarritoController();
-        $carrito->agregarProducto($pid, $uid, $tt);
+        $result = $carrito->agregarProducto($pid, $uid, $tt);
+        if ($result) {
+            print_r(json_encode(['r' => 'success']));
+        } else {
+            print_r(json_encode(['r' => 'error']));
+        }
     }
 
     /**********Ver cantidad de productos en el carrito *****/
@@ -171,5 +176,17 @@ if(!empty($_GET)){
         $uid = filter_input_array(INPUT_GET)['_vcar'];
         $carrito = new CarritoController();
         print_r($carrito->allCar($uid));
+    }
+    /********** Quitar un producto del carrito ********* */
+    $carid = in_array('_pci', array_keys(filter_input_array(INPUT_GET)));
+    if($carid){
+        $pci = filter_input(INPUT_GET,'_pci');
+        $carrito = new CarritoController();
+        $result = $carrito->deleteProductCar($pci);
+        if ($result) {
+            print_r(json_encode(['r' => 'success']));
+        } else {
+            print_r(json_encode(['r' => 'error']));
+        }
     }
 }

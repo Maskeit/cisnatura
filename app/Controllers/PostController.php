@@ -117,7 +117,7 @@ class PostController {
         $result = $product->update($datos['id']);
                           
         return $result;
-        header('Location: /cisnatura/resources/views/catalogo.php');
+        //header('Location: /cisnatura/resources/views/catalogo.php');
     }
     public function deleteProduct($pid){
         $product = new products();

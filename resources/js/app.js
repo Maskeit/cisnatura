@@ -17,8 +17,8 @@ const app = {
         prevproducts : ruta + "/app/app.php?_tp",
         singleproduct : ruta + "/app/app.php",
         //botones de compra y add
-        addproduct : ruta + "/app/app.php?_ap",
-        vercant: ruta + "/app/app.php",
+        addproduct : rutapp+"?_ap",
+        vercant: rutapp,
 
         allproducts : ruta +"/app/app.php?_tpe", //trae los productos a editar
         updateproduct : ruta +"/app/app.php",
@@ -275,8 +275,7 @@ const app = {
     //funciones del main
     lastPostTintura: function(limit) {
         let html = "<h4>Aún no hay productos</h4>";
-        this.lpt.html("");
-      
+        this.lpt.html("");      
         fetch(this.routes.lastpostT + "&limit=" + limit)
           .then(response => response.json())
           .then(lpresp => {
@@ -324,16 +323,22 @@ const app = {
     comprarProducto(pid){
         alert("Redirigiendo a pagar..");
     },
-    agregarProducto(pid, uid,tt) {
-        //e.preventDefault(); 
-        fetch(this.routes.addproduct + "&pid=" + pid + "&uid=" + uid + "&tt="+tt)
-            .then(response => response.text())
-            .then(data => {
-                const addp = JSON.parse(data); //addproduct
-                console.log(addp);
-                // Resto del código
-            }).catch(error => console.error(error));
+
+    //metodo para agregar un producto al carrito
+    agregarProducto(pid, uid, tt) {
+        fetch(this.routes.addproduct + "&pid=" + pid + "&uid=" + uid + "&tt=" + tt)
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            if (data.r === "success") {
+              this.verCant(uid); // Actualizar la lista de productos después de agregar
+            } else {
+              alert("No se pudo agregar el producto al carrito");
+            }
+          })
+          .catch(error => console.error(error));
     },
+        
     //cantidad de prod en carrito
     verCant(uid){
     //const uid = this.user.id;
@@ -343,13 +348,12 @@ const app = {
         .then(response => response.text())
         .then(data => {
             const cantidad = JSON.parse(data);
+            const num = cantidad[0].tt === "0" ? "" : cantidad[0].tt;
             console.log(cantidad);
-            if(cantidad.length>0){
-                html = `<span class="badge bg-danger">${cantidad[0].tt}</span>`;
-            }
+                html = `<span class="badge bg-danger">${num}</span>`;
             this.ap.html(html);
             // Resto del código
         }).catch(error => console.error(error));
-    },      
+    },          
 }
 

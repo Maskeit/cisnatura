@@ -9,9 +9,10 @@ const app_car = {
     pe : $('#pedido'),
 
     contentCar: function(uid) {
+        const idUser = uid;
         let html = "<h3>Agrega productos al carrito </h3>";
         this.pe.html("");
-        fetch(this.url + "?_vcar=" + uid)
+        fetch(this.url + "?_vcar=" + idUser)
             .then(resp => resp.json())
             .then(caresp => {
                 const productos = caresp;
@@ -26,13 +27,27 @@ const app_car = {
                             <td>${product.extracto}</td>
                             <td>${product.cantidad}</td>
                             <td>${product.price}</td>
-                            <td>${(product.price)*(product.cantidad)}</td>                        
+                            <td>${(product.price)*(product.cantidad)}</td>
+                            <td><a href="#" onclick="app_car.delProduct(${product.id},${idUser})"><i class="bi bi-trash"></i></a></td>                        
                         </tr>
                         `;
                     }
                 }
                 this.pe.html(html);
             }).catch(err => console.error(err));
+    },
+
+    delProduct : function(pci,uid){ // product car id
+        alert("Llego el producto " + pci);
+        fetch(this.url + "?_pci=" + pci)
+        .then(resp => resp.json())
+        .then(data => {
+            if (data.r === "success") {
+                this.contentCar(uid); // Actualizar la lista de citas después de eliminar
+            } else {
+                alert("No se pudo borrar");
+            }
+        }).catch( err => console.error(err));
     },
 
 }

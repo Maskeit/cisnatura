@@ -26,6 +26,7 @@ head($ua);
                                 <th>cantidad</th>
                                 <th>precio unitario</th>
                                 <th>precio total</th>
+                                <th>Quitar</th>
                             </tr>
                         </thead>
         

@@ -32,28 +32,31 @@ class CarritoController {
             $result = $carrito->where([['userId', $uid],['productId', $pid]])
                               ->update([['cantidad', 'cantidad + 1']]);
             return $result;
-        }        
+        }
     }
       
     public function buscarProductoEnCarrito($pid, $uid) {
         $carrito = new carrito();
         $result = $carrito->where([['userId',$uid],['productId',$pid]])
                           ->get();
-        if($result){
-            return $result[0];
-        }  
+        if($result == 0){
+            return;
+        }else{
+            return $result;  
+        }
     }
     public function agregarProductoAlCarrito($pid, $uid, $tt) {
         $carrito = new carrito();
         $carrito->valores = [
-            'userId' => $uid['userId'],
-            'productId' => $pid['productId'],
-            'cantidad' => $tt['cantidad']
-        ];
-        
+            'userId' => $uid,
+            'productId' => $pid,
+            'cantidad' => $tt
+        ];    
         $result = $carrito->create();
         return $result;
     }
+    
+       
     public function cantProductos($uid){
         $carrito = new carrito();
         $result = $carrito->count()//tt
@@ -82,7 +85,7 @@ class CarritoController {
         if($conexion == null){
             echo "Hubo un error al conectar a la base de datos <br>";
         } else {
-            $sql = "SELECT a.product_name, a.thumb, a.extracto, a.price, b.cantidad
+            $sql = "SELECT b.id, a.product_name, a.thumb, a.extracto, a.price, b.cantidad
                     FROM products a
                     INNER JOIN carrito b ON b.productId = a.id WHERE b.userId = $uid";
             
@@ -98,5 +101,10 @@ class CarritoController {
             return json_encode($filas);
         }
     }
-    
+
+    public function deleteProductCar($pci){
+        $carrito = new carrito();
+        $result = $carrito->delete($pci);
+        return $result;
+    }
 }
