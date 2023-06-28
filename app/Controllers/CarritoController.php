@@ -22,7 +22,7 @@ class CarritoController {
      * agregar productos al carrito
      */
 
-    public function agregarProductoasdasd($pid, $uid,$tt) {
+    public function agregarProducto($pid, $uid,$tt) {
         // Verificar si el producto ya está en el carrito del usuario
         $productoEnCarrito = $this->buscarProductoEnCarrito($pid, $uid);
         if(is_null($productoEnCarrito)){
@@ -46,7 +46,7 @@ class CarritoController {
             return $result;  
         }
     }
-    public function agregarProducto($pid, $uid, $tt) {
+    public function agregarProductoAlCarrito($pid, $uid, $tt) {
         $carrito = new carrito();
         $carrito->valores = [$uid, $pid, $tt];
         

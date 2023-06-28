@@ -97,12 +97,10 @@ const app = {
                             <div class="card" style="width: 14rem; transition: transform 0.3s;">
                                 <img src="/cisnatura/app/pimg/${product.thumb}" class="card-img-top" alt="..." onclick="app.singleProduct(${product.id})">
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-9">
-                                            <h5>${product.product_name}</h5>
-                                        </div>
+                                    <div class="row">                                        
+                                            <h5>${product.product_name}</h5>                                        
                                         <div class="col">
-                                            <h6><i class="bi bi-currency-dollar"></i> ${product.price}</h6>
+                                        <span><i class="bi bi-currency-dollar">${product.price}</i></span>
                                         </div>
                                     </div>
                                     <p class="card-text">${product.extracto}</p>
@@ -332,7 +330,7 @@ const app = {
             console.log(data);
         }).catch(error => console.error(error));
     },
-        
+
     //cantidad de prod en carrito
     verCant(uid){
     //const uid = this.user.id;
