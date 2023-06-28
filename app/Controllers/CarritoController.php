@@ -22,12 +22,13 @@ class CarritoController {
      * agregar productos al carrito
      */
 
-    public function agregarProducto($pid, $uid,$tt) {
+    public function agregarProductoasdasd($pid, $uid,$tt) {
         // Verificar si el producto ya está en el carrito del usuario
         $productoEnCarrito = $this->buscarProductoEnCarrito($pid, $uid);
         if(is_null($productoEnCarrito)){
-            return $this->agregarProductoAlCarrito($pid, $uid, $tt);
-        }else{
+            $this->agregarProductoAlCarrito($pid, $uid, $tt);
+            return;
+        }else if($productoEnCarrito!=null){
             $carrito = new carrito();
             $result = $carrito->where([['userId', $uid],['productId', $pid]])
                               ->update([['cantidad', 'cantidad + 1']]);
@@ -41,22 +42,19 @@ class CarritoController {
                           ->get();
         if($result == 0){
             return;
-        }else{
+        }else if($result > 0){
             return $result;  
         }
     }
-    public function agregarProductoAlCarrito($pid, $uid, $tt) {
+    public function agregarProducto($pid, $uid, $tt) {
         $carrito = new carrito();
-        $carrito->valores = [
-            'userId' => $uid,
-            'productId' => $pid,
-            'cantidad' => $tt
-        ];    
+        $carrito->valores = [$uid, $pid, $tt];
+        
         $result = $carrito->create();
         return $result;
     }
+
     
-       
     public function cantProductos($uid){
         $carrito = new carrito();
         $result = $carrito->count()//tt

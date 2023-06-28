@@ -187,13 +187,13 @@ const app = {
     },
     editSingleProduct: function(pid){
         const productID = pid;
-        console.log(productID);
+        //console.log(productID);
         fetch(this.routes.singleproduct+ "?_vp&pid="+ pid)
         .then(resp => resp.json())
         .then(presp => {
             const product = JSON.parse(presp);
             const toggleAc = product[0].active === "1" ? "on" : "off";
-            console.log(product[0].thumb)
+            //console.log(product[0].thumb)
             let html=`
             <form action="${rutapp}" method="POST" enctype="multipart/form-data">
                 <div class="card-body">
@@ -269,7 +269,7 @@ const app = {
                 this.productEdit();
                 $("#productModalEdit").modal("hide");
             }
-        }).catch( err => console.log(err));
+        }).catch( err => console.error(err));
     },
     
     //funciones del main
@@ -326,17 +326,11 @@ const app = {
 
     //metodo para agregar un producto al carrito
     agregarProducto(pid, uid, tt) {
-        fetch(this.routes.addproduct + "&pid=" + pid + "&uid=" + uid + "&tt=" + tt)
-          .then(response => response.json())
-          .then(data => {
+        fetch(this.routes.addproduct + "&pid="+pid+"&uid="+uid+"&tt="+tt)
+        .then(resp=>resp.json())
+        .then(data=>{
             console.log(data);
-            if (data.r === "success") {
-              this.verCant(uid); // Actualizar la lista de productos después de agregar
-            } else {
-              alert("No se pudo agregar el producto al carrito");
-            }
-          })
-          .catch(error => console.error(error));
+        }).catch(error => console.error(error));
     },
         
     //cantidad de prod en carrito
@@ -349,7 +343,7 @@ const app = {
         .then(data => {
             const cantidad = JSON.parse(data);
             const num = cantidad[0].tt === "0" ? "" : cantidad[0].tt;
-            console.log(cantidad);
+            //console.log(cantidad);
                 html = `<span class="badge bg-danger">${num}</span>`;
             this.ap.html(html);
             // Resto del código
