@@ -22,19 +22,19 @@ class CarritoController {
      * agregar productos al carrito
      */
 
-    public function agregarProducto($pid, $uid,$tt) {
-        // Verificar si el producto ya está en el carrito del usuario
-        $productoEnCarrito = $this->buscarProductoEnCarrito($pid, $uid);
-        if(is_null($productoEnCarrito)){
-            $this->agregarProductoAlCarrito($pid, $uid, $tt);
-            return;
-        }else if($productoEnCarrito!=null){
-            $carrito = new carrito();
-            $result = $carrito->where([['userId', $uid],['productId', $pid]])
-                              ->update([['cantidad', 'cantidad + 1']]);
-            return $result;
-        }
-    }
+    // public function agregarProducto($pid, $uid,$tt) {
+    //     // Verificar si el producto ya está en el carrito del usuario
+    //     $productoEnCarrito = $this->buscarProductoEnCarrito($pid, $uid);
+    //     if(is_null($productoEnCarrito)){
+    //         $this->agregarProductoAlCarrito($pid, $uid, $tt);
+    //         return;
+    //     }else if($productoEnCarrito!=null){
+    //         $carrito = new carrito();
+    //         $result = $carrito->where([['userId', $uid],['productId', $pid]])
+    //                           ->update([['cantidad', 'cantidad + 1']]);
+    //         return $result;
+    //     }
+    // }
       
     public function buscarProductoEnCarrito($pid, $uid) {
         $carrito = new carrito();
@@ -46,7 +46,7 @@ class CarritoController {
             return $result;  
         }
     }
-    public function agregarProductoAlCarrito($pid, $uid, $tt) {
+    public function agregarProducto($pid, $uid, $tt) {
         $carrito = new carrito();
         $carrito->valores = [$uid, $pid, $tt];
         

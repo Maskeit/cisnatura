@@ -43,6 +43,7 @@ const app = {
     pc: $('#product-card'),
     pce: $('#product-card-edit'),
     lpt : $('#product-tintura'),
+    padd : $('#toastContainer'),
     currentType : "",
 
     //Filtro de productos
@@ -324,13 +325,36 @@ const app = {
 
     //metodo para agregar un producto al carrito
     agregarProducto(pid, uid, tt) {
-        fetch(this.routes.addproduct + "&pid="+pid+"&uid="+uid+"&tt="+tt)
-        .then(resp=>resp.json())
-        .then(data=>{
-            console.log(data);
-        }).catch(error => console.error(error));
+        this.padd.html("");
+        fetch(this.routes.addproduct + "&pid=" + pid + "&uid=" + uid + "&tt=" + tt)
+            .then(resp => resp.json())
+            .then(data => {
+                console.log(data);
+                if (data.r === 'success') {
+                    let html = $('<div>').addClass('toast')
+                        .attr('role', 'alert')
+                        .attr('aria-live', 'assertive')
+                        .attr('aria-atomic', 'true')
+                        .attr('data-bs-autohide', 'false')
+                        .html(`
+                            <div class="toast-header">
+                                <img src="..." class="rounded me-2" alt="...">
+                                <strong class="me-auto">CISnatura</strong>
+                                <small>11 mins ago</small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                Se agregó 1 al carrito!
+                            </div>
+                        `);
+                    this.padd.html(html);
+                    this.verCant(uid);
+                }
+            })
+            .catch(error => console.error(error));
     },
-
+    
+    
     //cantidad de prod en carrito
     verCant(uid){
     //const uid = this.user.id;

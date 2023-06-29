@@ -78,6 +78,9 @@ head($ua);
                     </div>
                 </div>
             </div>
+            <!-- toast notificador -->
+            <div id="toastContainer"></div>
+
         </div>
         <?php } ?>
 
