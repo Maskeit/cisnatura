@@ -349,6 +349,8 @@ const app = {
                         `);
                     this.padd.html(html);
                     this.verCant(uid);
+                }else{
+                    alert('no se pudo agregar');
                 }
             })
             .catch(error => console.error(error));
@@ -357,12 +359,12 @@ const app = {
     
     //cantidad de prod en carrito
     verCant(uid){
-    //const uid = this.user.id;
-    let html = "";
-    this.ap.html("");
-    fetch(this.routes.vercant + "?_np=" + uid)
-        .then(response => response.text())
-        .then(data => {
+        //const uid = this.user.id;
+        let html = "";
+        this.ap.html("");
+        fetch(this.routes.vercant + "?_np=" + uid)
+            .then(response => response.text())
+            .then(data => {
             const cantidad = JSON.parse(data);
             const num = cantidad[0].tt === "0" ? "" : cantidad[0].tt;
             //console.log(cantidad);

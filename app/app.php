@@ -155,6 +155,10 @@ if(!empty($_GET)){
         $uid = filter_input(INPUT_GET,'uid');
         $tt = filter_input(INPUT_GET,'tt');
         $carrito = new CarritoController();
+        //imprimir valor del productoexistente
+        $productoExistente = $carrito->buscarProductoEnCarrito($pid,$uid);
+        var_dump($productoExistente);
+        echo '<br>';
         $result = $carrito->agregarProducto($pid, $uid, $tt);
         if ($result) {
             print_r(json_encode(['r' => 'success']));

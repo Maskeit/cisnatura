@@ -21,38 +21,28 @@ class CarritoController {
      * empiezan los metodos para
      * agregar productos al carrito
      */
-
-    // public function agregarProducto($pid, $uid,$tt) {
-    //     // Verificar si el producto ya está en el carrito del usuario
-    //     $productoEnCarrito = $this->buscarProductoEnCarrito($pid, $uid);
-    //     if(is_null($productoEnCarrito)){
-    //         $this->agregarProductoAlCarrito($pid, $uid, $tt);
-    //         return;
-    //     }else if($productoEnCarrito!=null){
-    //         $carrito = new carrito();
-    //         $result = $carrito->where([['userId', $uid],['productId', $pid]])
-    //                           ->update([['cantidad', 'cantidad + 1']]);
-    //         return $result;
-    //     }
-    // }
-      
     public function buscarProductoEnCarrito($pid, $uid) {
         $carrito = new carrito();
-        $result = $carrito->where([['userId',$uid],['productId',$pid]])
+        $result = $carrito->where([['userId', $uid], ['productId', $pid]])
                           ->get();
-        if($result == 0){
-            return;
-        }else if($result > 0){
-            return $result;  
-        }
-    }
-    public function agregarProducto($pid, $uid, $tt) {
-        $carrito = new carrito();
-        $carrito->valores = [$uid, $pid, $tt];
-        
-        $result = $carrito->create();
         return $result;
     }
+    
+    public function agregarProducto($pid, $uid, $tt) {
+        // Verificar si el producto ya está en el carrito del usuario
+        $productoExistente = $this->buscarProductoEnCarrito($pid, $uid);
+        $carrito = new carrito();
+        if (count([$productoExistente]) === 0) {
+            $carrito->valores = [$uid, $pid, $tt];        
+            $result = $carrito->create();
+            return $result;
+        } else{
+            $result = $carrito->where([['userId', $uid], ['productId', $pid]])
+                              ->update([['cantidad', 'cantidad + 1']]);
+            return $result;
+        }
+    }
+    
 
     
     public function cantProductos($uid){
