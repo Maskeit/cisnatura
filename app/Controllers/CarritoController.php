@@ -31,20 +31,18 @@ class CarritoController {
     public function agregarProducto($pid, $uid, $tt) {
         // Verificar si el producto ya está en el carrito del usuario
         $productoExistente = $this->buscarProductoEnCarrito($pid, $uid);
+        $cantidad = $this->cantProductos($uid);
         $carrito = new carrito();
-        if (count([$productoExistente]) === 0) {
+        if (empty($productoExistente))  {
             $carrito->valores = [$uid, $pid, $tt];        
             $result = $carrito->create();
-            return $result;
-        } else{
+        } else if(!empty($productoExistente)) {
             $result = $carrito->where([['userId', $uid], ['productId', $pid]])
                               ->update([['cantidad', 'cantidad + 1']]);
-            return $result;
         }
+        return $result;
     }
-    
-
-    
+        
     public function cantProductos($uid){
         $carrito = new carrito();
         $result = $carrito->count()//tt

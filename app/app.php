@@ -157,7 +157,10 @@ if(!empty($_GET)){
         $carrito = new CarritoController();
         //imprimir valor del productoexistente
         $productoExistente = $carrito->buscarProductoEnCarrito($pid,$uid);
+        $cantidadPr = $carrito->cantProductos($uid);
         var_dump($productoExistente);
+        echo '<br>';
+        var_dump($cantidadPr);
         echo '<br>';
         $result = $carrito->agregarProducto($pid, $uid, $tt);
         if ($result) {
