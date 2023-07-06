@@ -12,27 +12,37 @@ head($ua);
     }
 </style>
 
+<main>
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" style="background-image: url('/cisnatura/resources/img/verde2.jpg'); background-size:cover">
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
+            <h1 class="display-4 fw-normal">Tienda CISnatura</h1>
+            <p class="lead fw-normal rounded-3 text-white bg-opacity-3" style="background-color: rgba(0, 0, 0, 0.4)">Bienvenido(a) a la tienda CISnatura, Fabrica de remedios herbolarios</p>
+            <a class="btn btn-outline-secondary" href="/cisnatura/resources/views/catalogo.php">Ver productos</a>
+        </div>
+        <div class="product-device shadow-sm d-none d-md-block"></div>
+        <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+    </div>
+</main>
 <div class="container">
     <div class="row justify-content-center mt-4 mb-3">
-        <div class="col-md-6">
-            <div class="card" style="width: 28rem;">
-                <img src="/cisnatura/resources/img/plantas1.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Nuestras tinturas herbolarias están diseñadas con ingredientes de alta calidad.</p>
-                </div>
-            </div>
+        <div class="col-md-6 text-center align-items-center">
+            <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
+            <h2 class="fw-normal">Heading</h2>
+            <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
+            <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
         </div>
-        <div class="col-md-6 rounded-3" style="background-color: #f8f9fa;">
+        <div class="col-md-6 rounded-3">
             <p class="fw-lighter">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            En nuestra fábrica, nos enorgullece ofrecer productos elaborados con ingredientes naturales de la más alta calidad. Nos especializamos en la creación de tinturas a base de plantas naturales, así como en la producción de una amplia variedad de productos naturistas que promueven la salud y el bienestar.
+Nuestro compromiso con la naturaleza es fundamental en cada etapa de nuestro proceso de fabricación. Utilizamos exclusivamente plantas naturales cuidadosamente seleccionadas, así como ingredientes puros como la sal de mar y el agua de mar, para garantizar la máxima eficacia y beneficios para nuestros clientes.
+Nos apasiona ofrecer alternativas naturales y respetuosas con el medio ambiente para el cuidado de la salud. Nuestros productos se elaboran con amor y dedicación, combinando conocimientos ancestrales con métodos de producción modernos para brindar soluciones naturales efectivas.
             </p>
         </div>
     </div>
 
     <div class="row justify-content-center mt-4 mb-3">
         <h2 class="wp-block-heading mt-5" style="text-decoration: none;">
-            <a href="catalogo.php" data-type="#" data-id="#" target="_blank" rel="#" style="color: #6c757d; text-decoration: none;">Cisnatura Productos</a>
+            <a href="catalogo.php" data-type="#" data-id="#" target="_blank" rel="#" style="color: #6c757d; text-decoration: none;">Cisnatura Productos <i class="bi bi-box-arrow-in-up-right"></i></a>
         </h2>
 
         <div id="product-tintura" class="content">
@@ -40,7 +50,17 @@ head($ua);
 
         </div>
     </div>
-            <!-- Modal -->
+
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
+            <h1 class="display-4 fw-normal">Aprende mas</h1>
+            <p class="lead fw-normal">Visita cisnatura.com y mantente informado acerca de los mejores remedios herbolarios.</p>
+            <a class="btn btn-outline-secondary" href="https://www.cisnatura.com/">Ver pagina principal</a>
+        </div>
+        <div class="product-device shadow-sm d-none d-md-block"></div>
+        <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+    </div>
+            <!-- Modal del producto -->
             <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">

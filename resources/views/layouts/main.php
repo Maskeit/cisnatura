@@ -16,14 +16,15 @@
     <title>Cisnatura Tienda</title>
 </head>
 <body>
+<!-- navbar navbar-expand-lg navbar-light bg-white bg-gradient mb-3 shadow sticky-top -->
     <div id="app" class="container-fluid p-0">
         <header>        
-                <nav class="navbar navbar-expand-lg navbar-light bg-white bg-gradient mb-3 shadow" data-bs-theme="light">
+            <nav class="navbar navbar-expand-lg shadow" data-bs-theme="light">
                 <div class="container-fluid">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <a class="navbar-brand ml-3 mt-2 d-lg-none" href="#">
+                    <a class="navbar-brand ml-3 mt-2 d-lg-none" href="/cisnatura/index.php">
                         <img src="/cisnatura/resources/img/logocis.jpg" alt="Logo" height="70">
                     </a>
                     <a class="navbar-brand ml-3 d-none d-lg-block" href="/cisnatura/index.php">
@@ -91,8 +92,7 @@
                                     Iniciar Sesión
                                 </button>
                             </li>
-                            <?php } else { ?>
-                            
+                            <?php } else { ?>                            
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?=$ua->name?>
@@ -131,26 +131,23 @@ function scripts($script=""){
     function foot(){
 ?>
 
+    <div class="container">
+        <footer class="py-3 my-4">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Inicio</a></li>
+                <li class="nav-item"><a href="/cisnatura/resources/views/catalogo.php" class="nav-link px-2 text-body-secondary">Catálogo</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Ubicación</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Aviso de privacidad</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Preguntas</a></li>
+                <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><i class="bi bi-instagram"></i></svg></a></li>
+                <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><i class="bi bi-facebook"></i></svg></a></li>
+                <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><i class="bi bi-whatsapp"></i></svg></a></li>
+            </ul>
+            <p class="text-center text-body-secondary">&copy; 2023 CISnatura, Inc</p>
+        </footer>
+    </div>
 </body>
 </html>
-<!-- <footer class="bg-dark text-white">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 mb-5 mt-5">
-                <img src="/cisnatura/resources/img/plantas1.jpg" alt="Logo" class="rounded" style="width: 100px;">
-            </div>
-            <div class="col-md-4 mb-5 mt-5">
-                <p>&copy; CISnatura</p>
-            </div>
-            <div class="col-md-4 mb-5 mt-5">
-                <ul class="list-inline">
-                    <li class="list-inline-item"><a href="#">Aviso de privacidad</a></li>
-                    <li class="list-inline-item"><a href="#">Facebook</a></li>
-                    <li class="list-inline-item"><a href="#">Instagram</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</footer> -->
+
 
 <?php }
