@@ -10,7 +10,7 @@ const app_car = {
 
     contentCar: function(uid) {
         const idUser = uid;
-        let html = "<h3>Agrega productos al carrito </h3>";
+        let html = "<h4 class='lead text-muted d-flex justify-content-center'>Todo esta tranquilo por aqui...</h4>";
         this.pe.html("");
         fetch(this.url + "?_vcar=" + idUser)
             .then(resp => resp.json())

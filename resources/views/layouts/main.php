@@ -24,16 +24,18 @@
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <a class="navbar-brand ml-3 mt-2 d-lg-none" href="/cisnatura/index.php">
-                        <img src="/cisnatura/resources/img/logocis.jpg" alt="Logo" height="70">
-                    </a>
-                    <a class="navbar-brand ml-3 d-none d-lg-block" href="/cisnatura/index.php">
-                        <img src="/cisnatura/resources/img/logocis.jpg" height="100" alt="Logo">
-                    </a>
+                    <div class="d-flex justify-content-center">
+                        <a class="navbar-brand ml-3 mt-2 d-lg-none" href="/cisnatura/index.php">
+                            <img src="/cisnatura/resources/img/logocis.jpg" alt="Logo" height="70">
+                        </a>
+                        <a class="navbar-brand ml-3 d-none d-lg-block" href="/cisnatura/index.php">
+                            <img src="/cisnatura/resources/img/logocis.jpg" height="100" alt="Logo">
+                        </a>
+                    </div>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">                        
                         <ul class="navbar-nav me-auto mb-0 mb-lg-0">
                             <li class="nav-item">
-                                <a class="btn btn-success rounded-pill m-1 m-1"
+                                <a class="btn btn-outline-secondary mx-1 my-1"
                                         aria-current="page" 
                                         href="/cisnatura/resources/views/home.php"
                                         style="transition: transform 0.3s;"
@@ -42,7 +44,7 @@
                                         >Inicio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="btn btn-success rounded-pill m-1 m-1"
+                                <a class="btn btn-outline-secondary mx-1 my-1"
                                         aria-current="page" 
                                         href="/cisnatura/resources/views/catalogo.php"
                                         style="transition: transform 0.3s;"
@@ -50,16 +52,15 @@
                                         onmouseout="this.style.transform = 'scale(1)';"
                                         >Catálogo</a>
                             </li>
-                            <!-- <li class="nav-item">
-                                <a class="btn btn-success m-1 m-1"
+                            <li class="nav-item">
+                                <a id="informacion" class="btn btn-outline-secondary mx-1 my-1"
                                         aria-current="page" 
-                                        href="/cisnatura/resources/views/newcita.php"
+                                        href="/cisnatura/resources/views/home.php"
                                         style="transition: transform 0.3s;"
                                         onmouseover="this.style.transform = 'scale(1.1)';"
                                         onmouseout="this.style.transform = 'scale(1)';"
-                                        >Crear Cita</a>
-                            </li> -->
-
+                                        >Sobre la tienda</a>
+                            </li>
                             <?php if(!is_null($ua) && $ua->sv && $ua->tipo ==1){ ?>
                             <li class="nav-item">
                             <button class="btn btn-primary m-1"
@@ -134,14 +135,13 @@ function scripts($script=""){
     <div class="container">
         <footer class="py-3 my-4">
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Inicio</a></li>
+                <li class="nav-item"><a href="/cisnatura/resources/views/home.php" class="nav-link px-2 text-body-secondary">Inicio</a></li>
                 <li class="nav-item"><a href="/cisnatura/resources/views/catalogo.php" class="nav-link px-2 text-body-secondary">Catálogo</a></li>
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Ubicación</a></li>
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Aviso de privacidad</a></li>
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Preguntas</a></li>
-                <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><i class="bi bi-instagram"></i></svg></a></li>
-                <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><i class="bi bi-facebook"></i></svg></a></li>
-                <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><i class="bi bi-whatsapp"></i></svg></a></li>
+                <li class="ms-3"><a class="text-body-secondary" href="https://acortar.link/K9IKSS" target="_blank"><svg class="bi" width="24" height="24"><i class="bi bi-instagram"></i></svg></a></li>
+                <li class="ms-3"><a class="text-body-secondary" href="https://www.facebook.com/cisnaturasofiageovana" target="_blank"><svg class="bi" width="24" height="24"><i class="bi bi-facebook"></i></svg></a></li>
             </ul>
             <p class="text-center text-body-secondary">&copy; 2023 CISnatura, Inc</p>
         </footer>

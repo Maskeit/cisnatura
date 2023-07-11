@@ -31,11 +31,11 @@ head($ua);
             <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
             <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
         </div>
-        <div class="col-md-6 rounded-3">
+        <div class="col-md-6 rounded-3" id="informacion">
             <p class="fw-lighter">
             En nuestra fábrica, nos enorgullece ofrecer productos elaborados con ingredientes naturales de la más alta calidad. Nos especializamos en la creación de tinturas a base de plantas naturales, así como en la producción de una amplia variedad de productos naturistas que promueven la salud y el bienestar.
-Nuestro compromiso con la naturaleza es fundamental en cada etapa de nuestro proceso de fabricación. Utilizamos exclusivamente plantas naturales cuidadosamente seleccionadas, así como ingredientes puros como la sal de mar y el agua de mar, para garantizar la máxima eficacia y beneficios para nuestros clientes.
-Nos apasiona ofrecer alternativas naturales y respetuosas con el medio ambiente para el cuidado de la salud. Nuestros productos se elaboran con amor y dedicación, combinando conocimientos ancestrales con métodos de producción modernos para brindar soluciones naturales efectivas.
+            Nuestro compromiso con la naturaleza es fundamental en cada etapa de nuestro proceso de fabricación. Utilizamos exclusivamente plantas naturales cuidadosamente seleccionadas, así como ingredientes puros como la sal de mar y el agua de mar, para garantizar la máxima eficacia y beneficios para nuestros clientes.
+            Nos apasiona ofrecer alternativas naturales y respetuosas con el medio ambiente para el cuidado de la salud. Nuestros productos se elaboran con amor y dedicación, combinando conocimientos ancestrales con métodos de producción modernos para brindar soluciones naturales efectivas.
             </p>
         </div>
     </div>
@@ -51,15 +51,22 @@ Nos apasiona ofrecer alternativas naturales y respetuosas con el medio ambiente 
         </div>
     </div>
 
-    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-        <div class="col-md-5 p-lg-5 mx-auto my-5">
-            <h1 class="display-4 fw-normal">Aprende mas</h1>
-            <p class="lead fw-normal">Visita cisnatura.com y mantente informado acerca de los mejores remedios herbolarios.</p>
-            <a class="btn btn-outline-secondary" href="https://www.cisnatura.com/">Ver pagina principal</a>
+    <section>
+        <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Aquí puedes agregar la imagen con bordes redondeados -->
+                    <img src="/cisnatura/resources/img/pagina2.jpg" alt="" class="img-fluid rounded">
+                </div>
+                <div class="col-md-6">
+                    <h1 class="display-4 fw-normal">Aprende más</h1>
+                    <p class="lead fw-normal">Visita cisnatura.com y mantente informado acerca de los mejores remedios herbolarios.</p>
+                    <a class="btn btn-outline-secondary" href="https://www.cisnatura.com/">Ver página principal</a>
+                </div>
+
+            </div>
         </div>
-        <div class="product-device shadow-sm d-none d-md-block"></div>
-        <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
-    </div>
+    </section>
             <!-- Modal del producto -->
             <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">

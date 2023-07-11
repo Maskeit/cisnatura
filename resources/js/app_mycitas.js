@@ -51,20 +51,17 @@ const app_mycitas ={
     },
 
     eliminarCita: function(pid) {
-        const confirmDelete = confirm("¿Estás seguro de cancelar la cita? Se eliminará el registro.");
-        if (confirmDelete) {
+        
             fetch(this.url + "?_dc=" + pid)
                 .then(resp => resp.json())
                 .then(data => {
                     if (data.r === "success") {
                         alert("Se ha eliminado la cita.");
                         this.getMyCitas(); // Actualizar la lista de citas después de eliminar
-                    } else {
-                        alert("No se pudo eliminar la cita.");
                     }
                 })
                 .catch(err => console.error(err));
-        }
+        
     }
     
 

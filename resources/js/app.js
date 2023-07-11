@@ -375,3 +375,15 @@ const app = {
     },          
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+    var smoothScrollBtn = document.querySelector('a[href^="#"]');
+    smoothScrollBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+        var target = document.querySelector(this.getAttribute("href"));
+        var offset = target.offsetTop;
+        window.scrollTo({
+            top: offset,
+            behavior: "smooth"
+        });
+    });
+});
