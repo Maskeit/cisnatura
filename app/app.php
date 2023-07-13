@@ -160,7 +160,7 @@ if(!empty($_GET)){
         $cantidadPr = $carrito->cantProductos($uid);
         var_dump($productoExistente);
         echo '<br>';
-        var_dump($cantidadPr);
+        //var_dump($cantidadPr);
         echo '<br>';
         $result = $carrito->agregarProducto($pid, $uid, $tt);
         if ($result) {

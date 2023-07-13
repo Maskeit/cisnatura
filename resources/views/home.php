@@ -26,10 +26,11 @@ head($ua);
 <div class="container">
     <div class="row justify-content-center mt-4 mb-3">
         <div class="col-md-6 text-center align-items-center">
-            <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-            <h2 class="fw-normal">Heading</h2>
-            <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-            <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
+            <svg class="d-none bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
+            <img src="/cisnatura/resources/img/sofia1.jpg" alt="Imagen" width="140" height="160" class="rounded-circle">
+            <h2 class="fw-normal">Homeópata</h2>
+            <p>Sofia Geovana.</p>
+            <p><a class="btn btn-secondary" href="#">Ver Contacto &raquo;</a></p>
         </div>
         <div class="col-md-6 rounded-3" id="informacion">
             <p class="fw-lighter">
@@ -45,8 +46,8 @@ head($ua);
             <a href="catalogo.php" data-type="#" data-id="#" target="_blank" rel="#" style="color: #6c757d; text-decoration: none;">Cisnatura Productos <i class="bi bi-box-arrow-in-up-right"></i></a>
         </h2>
 
-        <div id="product-tintura" class="content">
-            <!-- aqui va un solo representante del producto -->
+        <div id="product-tintura" class="container-lg">
+            <!-- aqui van cuatro representantes del producto -->
 
         </div>
     </div>

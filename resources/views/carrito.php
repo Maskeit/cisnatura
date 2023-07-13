@@ -12,7 +12,15 @@ if (!$sessionData) {
 }
 head($ua);
 ?>
+
 <section class="container pt-3">
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/cisnatura/resources/views/catalogo.php">Volver</a></li>
+    <li class="breadcrumb-item active" aria-current="page">comprar</li>
+  </ol>
+</nav>
+
     <div class="row">
         <div class="col-md-9">
             <div class="card shadow">

@@ -45,8 +45,9 @@ head($ua);
                     </div>
                     <div class="mb-3">
                         <label for="price" class="form-label">Precio del producto</label>
-                        <input type="text" name="price" class="form-control" placeholder="$" aria-label="price" required>
+                        <input type="number" name="price" class="form-control" placeholder="$" aria-label="price" required>
                     </div>
+
                 </div>
                 <div class="card-footer">
                     <button class="btn btn-primary" type="submit">Guardar<i class="bi bi-download"></i></button>

@@ -43,17 +43,24 @@ head($ua);
             </div>
         </div>
         <?php } else { ?>
-        <div class="col-3">
-            <div id="filter-products" class="list-group">
-                <!-- clasificacion de productos -->
-
-            </div>
-        </div>        
-        <div class="col-9">
-            <div id="product-card" class="content">
-                <!-- aqui van los productos -->
+        <section>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="alert alert-info" role="alert" style="width: 13rem;">
+                    <small>Filtra por tipo de producto.</small>
+                </div>
+                <div id="filter-products" class="list-group mb-2">
+                    <!-- clasificacion de productos -->
+    
+                </div>
+            </div>        
+            <div class="col-md-9">
+                <div id="product-card" class="content">
+                    <!-- aqui van los productos -->
+                </div>
             </div>
         </div>
+        </section>
         <!-- Modal -->
         <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">

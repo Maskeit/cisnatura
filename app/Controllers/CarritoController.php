@@ -23,15 +23,19 @@ class CarritoController {
      */
     public function buscarProductoEnCarrito($pid, $uid) {
         $carrito = new carrito();
-        $result = $carrito->where([['userId', $uid], ['productId', $pid]])
+        $result = $carrito->where([['productId', $pid],['userId', $uid]])
                           ->get();
-        return $result;
+        if ($result === "[]") {
+            return null;
+        } else {
+            return $result;
+        }                          
     }
     
     public function agregarProducto($pid, $uid, $tt) {
         // Verificar si el producto ya está en el carrito del usuario
-        $productoExistente = $this->buscarProductoEnCarrito($pid, $uid);
         $cantidad = $this->cantProductos($uid);
+        $productoExistente = $this->buscarProductoEnCarrito($pid, $uid);
         $carrito = new carrito();
         if (empty($productoExistente))  {
             $carrito->valores = [$uid, $pid, $tt];        
@@ -39,8 +43,20 @@ class CarritoController {
         } else if(!empty($productoExistente)) {
             $result = $carrito->where([['userId', $uid], ['productId', $pid]])
                               ->update([['cantidad', 'cantidad + 1']]);
+            $result = true;
         }
         return $result;
+    }
+
+    public function increment($pid,$uid){
+        $carrito = new carrito();
+        $result = $carrito->where([['userId', $uid], ['productId', $pid]])
+                              ->update([['cantidad', 'cantidad + 1']]);
+    }
+    public function decrement($pid,$uid){
+        $carrito = new carrito();
+        $result = $carrito->where([['userId', $uid], ['productId', $pid]])
+                              ->update([['cantidad', 'cantidad - 1']]);
     }
         
     public function cantProductos($uid){

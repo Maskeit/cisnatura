@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Credits
+        Pagina desarrollada por Miguel Agustin Alejandre Arreola 
+    -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,9 +56,9 @@
                                         >Catálogo</a>
                             </li>
                             <li class="nav-item">
-                                <a id="informacion" class="btn btn-outline-secondary mx-1 my-1"
+                                <a class="btn btn-outline-secondary mx-1 my-1"
                                         aria-current="page" 
-                                        href="/cisnatura/resources/views/home.php"
+                                        href="#informacion"
                                         style="transition: transform 0.3s;"
                                         onmouseover="this.style.transform = 'scale(1.1)';"
                                         onmouseout="this.style.transform = 'scale(1)';"

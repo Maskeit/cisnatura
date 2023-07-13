@@ -89,13 +89,13 @@ const app = {
                 html = `<div class="row">`;
                 let counter = 0;
                 for (let product of products) {
-                    if(product.type === tipo && product.active === "1"){
+                    if(product.type === tipo && product.active === "1"){//si el producto esta activo se mostrara
                         if (counter % 4 === 0 && counter !== 0) {
                             html += `</div><div class="row">`; // Cierra y abre una nueva fila después de cada grupo de 4 elementos
                         }
                         html += `
-                        <div class="col-lg-3 col-md-4 col-sm-6 mb-3"> <!-- Se ajusta el número de columnas según el tamaño de pantalla -->
-                            <div class="card" style="width: 14rem; transition: transform 0.3s;">
+                        <div class="col mb-3"> <!-- Se ajusta el número de columnas según el tamaño de pantalla -->
+                            <div class="card" style="width: 18rem; transition: transform 0.3s;">
                                 <img src="/cisnatura/app/pimg/${product.thumb}" class="card-img-top" alt="..." onclick="app.singleProduct(${product.id})">
                                 <div class="card-body">
                                     <div class="row">                                        
@@ -158,7 +158,7 @@ const app = {
                         html += `</div><div class="row">`; // Cierra y abre una nueva fila después de cada grupo de 4 elementos
                     }
                     html += `
-                    <div class="col-lg-3 col-md-4 col-sm-6 mb-3"> <!-- Se ajusta el número de columnas según el tamaño de pantalla -->
+                    <div class="col mb-3"> <!-- Se ajusta el número de columnas según el tamaño de pantalla -->
                         <div class="card" style="width: 18rem; transition: transform 0.3s;" 
                         onclick="app.editSingleProduct(${product.id})">
                             <img src="/cisnatura/app/pimg/${product.thumb}" class="card-img-top" alt="...">
@@ -287,9 +287,9 @@ const app = {
 
                         if (counter % 4 === 0 && counter !== 0) {
                             html += `</div><div class="row">`; // Cierra y abre una nueva fila después de cada grupo de 4 elementos
-                        }
+                        }//col-lg-3 col-md-4 col-sm-6
                         html += `
-                        <div class="col-lg-3 col-md-4 col-sm-6 mb-3"> <!-- Se ajusta el número de columnas según el tamaño de pantalla -->
+                        <div class="col mb-3"> <!-- Se ajusta el número de columnas según el tamaño de pantalla -->
                             <div class="card" style="width: 18rem; transition: transform 0.3s;">
                                 <img src="/cisnatura/app/pimg/${product.thumb}" class="card-img-top" alt="..." onclick="app.singleProduct(${product.id})">
                                 <div class="card-body">
@@ -329,8 +329,10 @@ const app = {
         fetch(this.routes.addproduct + "&pid=" + pid + "&uid=" + uid + "&tt=" + tt)
             .then(resp => resp.json())
             .then(data => {
+                const envdata = JSON.parse(data);
                 console.log(data);
                 if (data.r === 'success') {
+                    this.verCant(uid);
                     let html = $('<div>').addClass('toast')
                         .attr('role', 'alert')
                         .attr('aria-live', 'assertive')
@@ -338,7 +340,6 @@ const app = {
                         .attr('data-bs-autohide', 'false')
                         .html(`
                             <div class="toast-header">
-                                <img src="..." class="rounded me-2" alt="...">
                                 <strong class="me-auto">CISnatura</strong>
                                 <small>11 mins ago</small>
                                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -347,8 +348,7 @@ const app = {
                                 Se agregó 1 al carrito!
                             </div>
                         `);
-                    this.padd.html(html);
-                    this.verCant(uid);
+                        this.padd.html(html);
                 }else{
                     alert('no se pudo agregar');
                 }
